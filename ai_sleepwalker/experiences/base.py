@@ -3,17 +3,13 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
-from enum import Enum
 from typing import Any
 
+from ..constants import ExperienceMode
+from ..models import FileSystemDiscovery
 
-class ExperienceType(Enum):
-    """Available experience modes for the sleepwalker."""
-
-    DREAM = "dream"
-    ADVENTURE = "adventure"
-    SCRAPBOOK = "scrapbook"
-    JOURNAL = "journal"
+# Use the centralized enum for consistency
+ExperienceType = ExperienceMode
 
 
 @dataclass
@@ -46,7 +42,7 @@ class ExperienceCollector(ABC):
     """Base class for collecting observations during exploration."""
 
     @abstractmethod
-    def add_observation(self, discovery: dict[str, Any]) -> None:
+    def add_observation(self, discovery: FileSystemDiscovery) -> None:
         """Process and store an observation."""
         pass
 

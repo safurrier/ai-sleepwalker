@@ -1,8 +1,8 @@
 """Dream experience implementation for poetic filesystem reflections."""
 
 from datetime import datetime
-from typing import Any
 
+from ..models import FileSystemDiscovery
 from .base import (
     ExperienceCollector,
     ExperienceResult,
@@ -18,17 +18,17 @@ class DreamCollector(ExperienceCollector):
     def __init__(self) -> None:
         self._observations: list[Observation] = []
 
-    def add_observation(self, discovery: dict[str, Any]) -> None:
+    def add_observation(self, discovery: FileSystemDiscovery) -> None:
         """Add an observation about a filesystem discovery."""
         note = self._create_brief_note(discovery)
 
         observation = Observation(
-            timestamp=datetime.now(),
-            path=discovery["path"],
-            name=discovery["name"],
-            type=discovery["type"],
-            size_bytes=discovery.get("size_bytes"),
-            preview=discovery.get("preview"),
+            timestamp=discovery.timestamp,
+            path=str(discovery.path),
+            name=discovery.name,
+            type=discovery.discovery_type,
+            size_bytes=discovery.size_bytes,
+            preview=discovery.preview,
             brief_note=note,
         )
 
@@ -39,19 +39,16 @@ class DreamCollector(ExperienceCollector):
         """Get all collected observations."""
         return self._observations
 
-    def _create_brief_note(self, discovery: dict[str, Any]) -> str:
+    def _create_brief_note(self, discovery: FileSystemDiscovery) -> str:
         """Create simple factual note about discovery."""
-        name = discovery["name"]
-        disc_type = discovery["type"]
-
-        if disc_type == "file":
-            if discovery.get("preview"):
-                return f"File '{name}' with personal content"
+        if discovery.is_file:
+            if discovery.preview:
+                return f"File '{discovery.name}' with personal content"
             else:
-                size = discovery.get("size_bytes", 0)
-                return f"File '{name}' ({size} bytes)"
+                size = discovery.size_bytes or 0
+                return f"File '{discovery.name}' ({size} bytes)"
         else:
-            return f"Directory '{name}' with various contents"
+            return f"Directory '{discovery.name}' with various contents"
 
 
 class DreamSynthesizer(ExperienceSynthesizer):

@@ -67,7 +67,7 @@ async def test_idle_detection_and_exploration_workflow():
         assert idle_detector.is_idle is True  # Idle state detected
         assert explorer.wander_count > 0  # Exploration attempted
         assert len(exploration_results) == len(discoveries)  # All discoveries found
-        assert all("path" in result for result in exploration_results)  # Valid discovery format
+        assert all(hasattr(result, 'path') for result in exploration_results)  # Valid discovery format
 
 
 @pytest.mark.smoke

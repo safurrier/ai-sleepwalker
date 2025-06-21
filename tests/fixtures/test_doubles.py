@@ -16,6 +16,8 @@ from ai_sleepwalker.experiences.base import (
     ExperienceType,
     Observation,
 )
+from ai_sleepwalker.models import FileSystemDiscovery
+from ai_sleepwalker.constants import DiscoveryType
 
 
 class FakeIdleDetector:
@@ -56,12 +58,12 @@ class FakeSleepPreventer:
 class InMemoryFilesystemExplorer:
     """Test double that simulates filesystem exploration without file I/O."""
 
-    def __init__(self, discoveries: list[dict[str, Any]] | None = None) -> None:
+    def __init__(self, discoveries: list[FileSystemDiscovery] | None = None) -> None:
         self._discoveries = discoveries or []
         self._index = 0
         self.wander_count = 0
 
-    def wander(self) -> dict[str, Any] | None:
+    def wander(self) -> FileSystemDiscovery | None:
         """Return next discovery or None if exhausted."""
         self.wander_count += 1
         
@@ -72,7 +74,7 @@ class InMemoryFilesystemExplorer:
         self._index += 1
         return result
 
-    def add_discovery(self, discovery: dict[str, Any]) -> None:
+    def add_discovery(self, discovery: FileSystemDiscovery) -> None:
         """Add a discovery to be returned by future wander() calls."""
         self._discoveries.append(discovery)
 
@@ -84,16 +86,16 @@ class FakeExperienceCollector:
         self.observations: list[Observation] = []
         self.discovery_count = 0
 
-    def add_observation(self, discovery: dict[str, Any]) -> None:
+    def add_observation(self, discovery: FileSystemDiscovery) -> None:
         """Track observation creation without complex logic."""
         self.discovery_count += 1
         observation = Observation(
-            timestamp=datetime.now(),
-            path=discovery["path"],
-            name=discovery["name"],
-            type=discovery["type"],
-            size_bytes=discovery.get("size_bytes"),
-            preview=discovery.get("preview"),
+            timestamp=discovery.timestamp,
+            path=str(discovery.path),
+            name=discovery.name,
+            type=discovery.discovery_type,
+            size_bytes=discovery.size_bytes,
+            preview=discovery.preview,
             brief_note=f"Test observation {self.discovery_count}",
         )
         self.observations.append(observation)
@@ -175,27 +177,27 @@ class FakeLLMClient:
         }
 
 
-def create_test_discoveries() -> list[dict[str, Any]]:
+def create_test_discoveries() -> list[FileSystemDiscovery]:
     """Create standard test discoveries for filesystem exploration."""
     return [
-        {
-            "path": "/test/documents/notes.txt",
-            "name": "notes.txt",
-            "type": "file",
-            "size_bytes": 156,
-            "preview": "Test file content",
-        },
-        {
-            "path": "/test/photos",
-            "name": "photos", 
-            "type": "directory",
-        },
-        {
-            "path": "/test/projects/readme.md",
-            "name": "readme.md",
-            "type": "file",
-            "size_bytes": 1024,
-        },
+        FileSystemDiscovery(
+            path=Path("/test/documents/notes.txt"),
+            name="notes.txt",
+            discovery_type=DiscoveryType.FILE.value,
+            size_bytes=156,
+            preview="Test file content",
+        ),
+        FileSystemDiscovery(
+            path=Path("/test/photos"),
+            name="photos",
+            discovery_type=DiscoveryType.DIRECTORY.value,
+        ),
+        FileSystemDiscovery(
+            path=Path("/test/projects/readme.md"),
+            name="readme.md",
+            discovery_type=DiscoveryType.FILE.value,
+            size_bytes=1024,
+        ),
     ]
 
 

@@ -11,6 +11,8 @@ from datetime import datetime
 
 from ai_sleepwalker.experiences.factory import ExperienceFactory
 from ai_sleepwalker.experiences.base import ExperienceType
+from ai_sleepwalker.models import FileSystemDiscovery
+from ai_sleepwalker.constants import DiscoveryType
 from tests.fixtures.test_doubles import create_test_discoveries
 
 
@@ -61,12 +63,12 @@ def test_experience_factory_consistency():
     assert dream_synthesizer.experience_type == ExperienceType.DREAM
     
     # Test that collector produces observations synthesizer can handle
-    test_discovery = {
-        "path": "/test/file.txt",
-        "name": "file.txt", 
-        "type": "file",
-        "size_bytes": 100
-    }
+    test_discovery = FileSystemDiscovery(
+        path=Path("/test/file.txt"),
+        name="file.txt",
+        discovery_type=DiscoveryType.FILE.value,
+        size_bytes=100
+    )
     
     dream_collector.add_observation(test_discovery)
     observations = dream_collector.get_observations()
@@ -85,10 +87,29 @@ def test_multiple_discovery_types_handling():
     
     # Different types of discoveries
     discoveries = [
-        {"path": "/test/doc.txt", "name": "doc.txt", "type": "file", "size_bytes": 100},
-        {"path": "/test/folder", "name": "folder", "type": "directory"},
-        {"path": "/test/large.dat", "name": "large.dat", "type": "file", "size_bytes": 1024000},
-        {"path": "/test/empty.txt", "name": "empty.txt", "type": "file", "size_bytes": 0},
+        FileSystemDiscovery(
+            path=Path("/test/doc.txt"), 
+            name="doc.txt", 
+            discovery_type=DiscoveryType.FILE.value, 
+            size_bytes=100
+        ),
+        FileSystemDiscovery(
+            path=Path("/test/folder"), 
+            name="folder", 
+            discovery_type=DiscoveryType.DIRECTORY.value
+        ),
+        FileSystemDiscovery(
+            path=Path("/test/large.dat"), 
+            name="large.dat", 
+            discovery_type=DiscoveryType.FILE.value, 
+            size_bytes=1024000
+        ),
+        FileSystemDiscovery(
+            path=Path("/test/empty.txt"), 
+            name="empty.txt", 
+            discovery_type=DiscoveryType.FILE.value, 
+            size_bytes=0
+        ),
     ]
     
     # Act - Process different discovery types
@@ -101,8 +122,8 @@ def test_multiple_discovery_types_handling():
     assert len(observations) == len(discoveries)
     
     # Verify type mapping
-    file_observations = [obs for obs in observations if obs.type == "file"]
-    dir_observations = [obs for obs in observations if obs.type == "directory"]
+    file_observations = [obs for obs in observations if obs.type == DiscoveryType.FILE.value]
+    dir_observations = [obs for obs in observations if obs.type == DiscoveryType.DIRECTORY.value]
     
     assert len(file_observations) == 3  # 3 files
     assert len(dir_observations) == 1   # 1 directory
@@ -143,9 +164,21 @@ def test_observation_timestamp_ordering():
     import time
     
     discoveries = [
-        {"path": "/test/first.txt", "name": "first.txt", "type": "file"},
-        {"path": "/test/second.txt", "name": "second.txt", "type": "file"},
-        {"path": "/test/third.txt", "name": "third.txt", "type": "file"},
+        FileSystemDiscovery(
+            path=Path("/test/first.txt"), 
+            name="first.txt", 
+            discovery_type=DiscoveryType.FILE.value
+        ),
+        FileSystemDiscovery(
+            path=Path("/test/second.txt"), 
+            name="second.txt", 
+            discovery_type=DiscoveryType.FILE.value
+        ),
+        FileSystemDiscovery(
+            path=Path("/test/third.txt"), 
+            name="third.txt", 
+            discovery_type=DiscoveryType.FILE.value
+        ),
     ]
     
     timestamps = []
