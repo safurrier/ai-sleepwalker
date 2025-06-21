@@ -5,15 +5,24 @@ description = "Don't let your computer go to sleep, let AI sleepwalk through it"
 authors = [
     { name = "alex furrier", email = "safurrier@gmail.com" },
 ]
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 readme = "README.md"
-dependencies = []
+dependencies = [
+    "click>=8.0.0",              # CLI framework
+    "pynput>=1.7.0",             # User activity detection
+    "wakepy>=0.9.0",             # Cross-platform sleep prevention
+    "litellm>=1.0.0",            # LLM client with multiple providers
+    "pydantic>=2.0.0",           # Data validation and structured output
+    "tenacity>=8.0.0",           # Retry logic for API calls
+]
 
 [project.optional-dependencies]
 dev = [
     "mypy>=1.9.0",
     "pytest>=8.1.1",
+    "pytest-asyncio>=0.24.0",    # Async test support
     "pytest-cov>=5.0.0",
+    "pytest-mock>=3.12.0",       # Mocking for tests
     "ruff>=0.3.0",
     "pre-commit>=3.6.0",
     "tomli>=2.0.1",
@@ -35,4 +44,41 @@ dev = [
 [tool.hatch.build.targets.wheel]
 packages = [
     "ai_sleepwalker",
+]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests"]
+markers = [
+    "smoke: High-level system validation tests (critical paths)",
+    "integration: Integration tests for component interactions", 
+    "unit: Unit tests for individual components",
+    "slow: Tests that take a long time to run",
+    "external: Tests that require external services (exclude from CI)",
+]
+asyncio_mode = "auto"
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+extend-exclude = ["site/"]
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
 ]

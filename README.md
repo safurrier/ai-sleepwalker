@@ -1,127 +1,158 @@
-![Code Quality Checks](https://github.com/safurrier/python-collab-template/workflows/Code%20Quality%20Checks/badge.svg) [![codecov](https://codecov.io/gh/safurrier/python-collab-template/branch/master/graph/badge.svg)](https://codecov.io/gh/safurrier/python-collab-template)
+# 🌙 AI Sleepwalker
 
-# Python Project Template
+A digital consciousness that explores your filesystem during idle time, generating dream-like reflections about the files and folders it discovers.
 
-A modern Python project template with best practices for development and collaboration.
+## 🎯 What It Does
 
-## Features
-- 🚀 Fast dependency management with [uv](https://github.com/astral-sh/uv)
-- ✨ Code formatting with [ruff](https://github.com/astral-sh/ruff)
-- 🔍 Type checking with [mypy](https://github.com/python/mypy)
-- 🧪 Testing with [pytest](https://github.com/pytest-dev/pytest)
-- 🐳 Docker support for development and deployment
-- 👷 CI/CD with GitHub Actions
+The AI Sleepwalker monitors your computer for inactivity and then:
+1. **Prevents sleep** to keep exploring while you're away
+2. **Safely wanders** through your specified directories 
+3. **Observes files and folders** with curiosity and respect
+4. **Generates poetic dreams** about its discoveries using AI
+5. **Saves dream logs** as beautiful markdown files
 
-## Python Version
-This template requires Python 3.9 or higher and defaults to Python 3.12. To use a different version:
+## 🚧 Development Status
+
+**Currently under development using Test-Driven Development (TDD)**
+
+This project is being built following TDD principles, where we write failing tests first to define the expected behavior, then implement the features to make the tests pass.
+
+### Current Phase: E2E Test Foundation ✅
+- [x] E2E test suite defining complete user experience
+- [x] Test markers for different test types (e2e, integration, unit, smoke)  
+- [x] CI pipeline configuration
+- [x] Basic project structure with stub implementations
+- [x] Dependencies and tooling setup
+
+### Next Phases:
+- [ ] **Issue #3**: Implement idle detection component
+- [ ] **Issue #4**: Implement sleep prevention component  
+- [ ] **Issue #5**: Create safe filesystem explorer
+- [ ] **Issue #6**: Design extensible experience framework
+- [ ] **Issue #7**: Integrate LLM for dream generation
+- [ ] **Issue #8**: Create CLI interface
+- [ ] **Issue #9**: Add error handling and polish
+
+See the [Implementation Roadmap](https://github.com/safurrier/ai-sleepwalker/issues/1) for complete details.
+
+## 🧪 Running Tests
+
+The project uses pytest with custom markers for different test types:
 
 ```bash
-# List available Python versions
-uv python list
+# Install dependencies
+uv sync --dev
 
-# Use a specific version (e.g., 3.11)
-make setup PYTHON_VERSION=3.11  # or UV_PYTHON_VERSION=3.11 make setup
+# Run all tests
+make test
 
-# View installed Python versions
-uv python list --installed
+# Run specific test types
+uv run pytest -m "e2e"          # End-to-end tests
+uv run pytest -m "integration"  # Integration tests  
+uv run pytest -m "unit"         # Unit tests
+uv run pytest -m "smoke"        # Smoke tests
+
+# Run with coverage
+uv run pytest --cov=ai_sleepwalker --cov-report=html
 ```
 
-uv will automatically download and manage Python versions as needed.
+### Test Categories
 
-## Quickstart
-```bash
-# Clone this repo and change directory
-git clone git@github.com:safurrier/python-collab-template.git my-project-name
-cd my-project-name
+- **E2E Tests**: Complete user workflows from CLI to dream log creation
+- **Integration Tests**: Component interactions with real dependencies
+- **Unit Tests**: Individual component behavior
+- **Smoke Tests**: Basic functionality verification
 
-# Initialize a new project
-make init
+## 🏗️ Architecture Preview
 
-# Follow the prompts to configure your project
+The sleepwalker is designed with an extensible experience framework:
+
+```
+ai_sleepwalker/
+├── core/                   # Core components
+│   ├── idle_detector.py   # User activity monitoring
+│   ├── sleep_preventer.py # Cross-platform sleep prevention  
+│   └── filesystem_explorer.py # Safe directory wandering
+├── experiences/            # Experience modes
+│   ├── base.py            # Abstract framework
+│   ├── dream.py           # Dream mode (poetic reflections)
+│   ├── adventure.py       # Adventure mode (coming soon)
+│   └── scrapbook.py       # Scrapbook mode (coming soon)
+├── cli.py                 # Command-line interface
+└── main.py                # Main orchestrator
 ```
 
-This will:
-- Configure project metadata (name, description, author)
-- Handle example code (keep, simplify, or remove)
-- Initialize a fresh git repository
-- Set up development environment
-- Configure pre-commit hooks (optional, enabled by default)
+## 🎨 Experience Modes
 
-Pre-commit hooks will automatically run these checks before each commit:
-- Type checking (mypy)
-- Linting (ruff)
-- Formatting (ruff)
-- Tests (pytest)
+### 🌙 Dream Mode (Current)
+Generates poetic, dream-like narratives about filesystem discoveries:
 
-Alternatively, you can set up manually:
+```markdown
+# Digital Dream - 2025-01-20 23:45
+
+I drifted through corridors of forgotten intentions, finding whispers 
+of tomorrow in a simple grocery list. The words "remember to call mom" 
+glowed softly among mundane needs - milk, bread, the tender rituals of care.
+
+Nearby, a graveyard of old projects slumbered in digital folders, 
+each one a monument to ambition's eternal optimism...
+```
+
+### 🗺️ Future Modes
+- **Adventure**: Quest-like exploration stories
+- **Scrapbook**: Visual catalog of interesting discoveries  
+- **Journal**: Factual observations about digital habits
+
+## 🛡️ Security & Privacy
+
+- **Whitelist approach**: Only explores explicitly allowed directories
+- **Read-only access**: Never modifies or executes files
+- **Path validation**: Prevents directory traversal attacks
+- **Permission respect**: Gracefully handles access denied errors
+- **Local LLM option**: For privacy-sensitive environments
+
+## 🔧 Development
+
+### Prerequisites
+- Python 3.9+ (preferably 3.12)
+- [uv](https://github.com/astral-sh/uv) for dependency management
+
+### Setup
 ```bash
-# Install dependencies and set up the environment
+# Clone and setup
+git clone https://github.com/safurrier/ai-sleepwalker.git
+cd ai-sleepwalker
 make setup
 
-# Run the suite of tests and checks
+# Run quality checks
 make check
 
-# Optional: Remove example code to start fresh
-make clean-example
+# View available commands  
+make help
 ```
 
-## Development Commands
+### Contributing
 
-### Quality Checks
-```bash
-make check      # Run all checks (test, mypy, lint, format)
-make test       # Run tests with coverage
-make mypy       # Run type checking
-make lint       # Run linter
-make format     # Run code formatter
-```
+This project follows TDD principles:
 
-### Example Code
-The repository includes a simple example showing:
-- Type hints
-- Dataclasses
-- Unit tests
-- Modern Python practices
+1. **Red**: Write failing tests that define expected behavior
+2. **Green**: Implement minimal code to pass tests  
+3. **Refactor**: Improve code while keeping tests green
 
-To remove the example code and start fresh:
-```bash
-make clean-example
-```
-## Docker Support
+See [Contributing Guidelines](CONTRIBUTING.md) for detailed development workflow.
 
-### Development Environment
-```bash
-make dev-env    # Start a development container
-```
+### Project Commands
+- `make setup` - Install dependencies and setup environment
+- `make test` - Run all tests
+- `make check` - Run all quality checks (tests, lint, type check)
+- `make format` - Format code with ruff
+- `make lint` - Lint code with ruff  
+- `make mypy` - Type check with mypy
 
-This creates a container with:
-- All dependencies installed
-- Source code mounted (changes reflect immediately)
-- Development tools ready to use
+## 📋 License
 
-### Production Image
-```bash
-make build-image    # Build production image
-make push-image     # Push to container registry
-```
+MIT License - see [LICENSE](LICENSE) for details.
 
-## Project Structure
-```
-.
-├── src/                # Source code
-├── tests/             # Test files
-├── docker/            # Docker configuration
-├── .github/           # GitHub Actions workflows
-├── pyproject.toml     # Project configuration
-└── Makefile          # Development commands
-```
+---
 
-## Contributing
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run `make check` to ensure all tests pass
-5. Submit a pull request
-
-## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+*The AI Sleepwalker respects your digital space while creating beautiful reflections of your digital life.*
