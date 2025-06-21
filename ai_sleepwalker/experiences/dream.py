@@ -1,7 +1,7 @@
 """Dream experience implementation for poetic filesystem reflections."""
 
 from datetime import datetime
-from typing import Any, Dict, List
+from typing import Any
 
 from .base import (
     ExperienceCollector,
@@ -16,9 +16,9 @@ class DreamCollector(ExperienceCollector):
     """Collects observations for dream synthesis."""
 
     def __init__(self) -> None:
-        self._observations: List[Observation] = []
+        self._observations: list[Observation] = []
 
-    def add_observation(self, discovery: Dict[str, Any]) -> None:
+    def add_observation(self, discovery: dict[str, Any]) -> None:
         """Add an observation about a filesystem discovery."""
         note = self._create_brief_note(discovery)
 
@@ -35,11 +35,11 @@ class DreamCollector(ExperienceCollector):
         self._observations.append(observation)
         print(f"😴 Dreaming of: {note}")
 
-    def get_observations(self) -> List[Observation]:
+    def get_observations(self) -> list[Observation]:
         """Get all collected observations."""
         return self._observations
 
-    def _create_brief_note(self, discovery: Dict[str, Any]) -> str:
+    def _create_brief_note(self, discovery: dict[str, Any]) -> str:
         """Create simple factual note about discovery."""
         name = discovery["name"]
         disc_type = discovery["type"]
@@ -65,7 +65,7 @@ class DreamSynthesizer(ExperienceSynthesizer):
         """Type of experience this synthesizer creates."""
         return ExperienceType.DREAM
 
-    async def synthesize(self, observations: List[Observation]) -> ExperienceResult:
+    async def synthesize(self, observations: list[Observation]) -> ExperienceResult:
         """Create a dream narrative from observations."""
         if not observations:
             return self._create_empty_dream()
@@ -100,7 +100,7 @@ class DreamSynthesizer(ExperienceSynthesizer):
             file_extension=".md",
         )
 
-    def _create_placeholder_dream(self, observations: List[Observation]) -> str:
+    def _create_placeholder_dream(self, observations: list[Observation]) -> str:
         """Create a placeholder dream narrative until LLM integration is complete."""
         lines = [
             "# Digital Dream",
@@ -120,9 +120,10 @@ class DreamSynthesizer(ExperienceSynthesizer):
         lines.extend(
             [
                 "",
-                "The dream fades like morning mist, leaving only impressions of a digital life lived in files and folders.",
+                "The dream fades like morning mist, leaving only impressions of "
+                "a digital life lived in files and folders.",
                 "",
-                f"*{len(observations)} observations collected during this dream session*",
+                f"*{len(observations)} observations collected during this session*",
             ]
         )
 

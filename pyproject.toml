@@ -51,11 +51,11 @@ minversion = "8.0"
 addopts = "-ra -q --strict-markers"
 testpaths = ["tests"]
 markers = [
-    "e2e: End-to-end tests that test complete user workflows",
-    "integration: Integration tests for component interactions",
+    "smoke: High-level system validation tests (critical paths)",
+    "integration: Integration tests for component interactions", 
     "unit: Unit tests for individual components",
-    "smoke: Smoke tests for basic functionality",
     "slow: Tests that take a long time to run",
+    "external: Tests that require external services (exclude from CI)",
 ]
 asyncio_mode = "auto"
 

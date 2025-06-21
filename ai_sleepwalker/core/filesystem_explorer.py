@@ -2,13 +2,13 @@
 
 import random
 from pathlib import Path
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 class FilesystemExplorer:
     """Safe filesystem exploration that respects directory boundaries."""
 
-    def __init__(self, allowed_dirs: List[str]) -> None:
+    def __init__(self, allowed_dirs: list[str]) -> None:
         """Initialize explorer with allowed directories.
 
         Args:
@@ -19,7 +19,7 @@ class FilesystemExplorer:
             random.choice(self.allowed_paths) if self.allowed_paths else None
         )
 
-    def wander(self) -> Optional[Dict[str, Any]]:
+    def wander(self) -> dict[str, Any] | None:
         """Pick a random direction to explore."""
         # TODO: Implement actual filesystem wandering
         # For now, return None to indicate no discoveries
@@ -35,7 +35,7 @@ class FilesystemExplorer:
         except (OSError, ValueError):
             return False
 
-    def _create_discovery(self, path: Path) -> Dict[str, Any]:
+    def _create_discovery(self, path: Path) -> dict[str, Any]:
         """Create discovery object for a filesystem item."""
         # TODO: Implement discovery creation with proper metadata
         return {

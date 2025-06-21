@@ -14,6 +14,7 @@ class ExperienceFactory:
         match experience_type:
             case ExperienceType.DREAM:
                 from .dream import DreamCollector
+
                 return DreamCollector()
             case ExperienceType.ADVENTURE:
                 raise NotImplementedError("Adventure mode coming soon!")
@@ -30,6 +31,7 @@ class ExperienceFactory:
         match experience_type:
             case ExperienceType.DREAM:
                 from .dream import DreamSynthesizer
+
                 return DreamSynthesizer(**kwargs)
             case ExperienceType.ADVENTURE:
                 raise NotImplementedError("Adventure mode coming soon!")

@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Any, Dict, List, Optional
+from typing import Any
 
 
 class ExperienceType(Enum):
@@ -24,8 +24,8 @@ class Observation:
     path: str
     name: str
     type: str  # "file" or "directory"
-    size_bytes: Optional[int] = None  # Only for files
-    preview: Optional[str] = None  # Brief content for text files
+    size_bytes: int | None = None  # Only for files
+    preview: str | None = None  # Brief content for text files
     brief_note: str = ""  # Simple human description
 
 
@@ -38,7 +38,7 @@ class ExperienceResult:
     session_end: datetime
     total_observations: int
     content: str  # The main narrative/output
-    metadata: Dict[str, Any]  # Experience-specific data
+    metadata: dict[str, Any]  # Experience-specific data
     file_extension: str  # .md, .html, .json, etc.
 
 
@@ -46,12 +46,12 @@ class ExperienceCollector(ABC):
     """Base class for collecting observations during exploration."""
 
     @abstractmethod
-    def add_observation(self, discovery: Dict[str, Any]) -> None:
+    def add_observation(self, discovery: dict[str, Any]) -> None:
         """Process and store an observation."""
         pass
 
     @abstractmethod
-    def get_observations(self) -> List[Observation]:
+    def get_observations(self) -> list[Observation]:
         """Get all collected observations."""
         pass
 
@@ -60,7 +60,7 @@ class ExperienceSynthesizer(ABC):
     """Base class for synthesizing observations into final experience."""
 
     @abstractmethod
-    async def synthesize(self, observations: List[Observation]) -> ExperienceResult:
+    async def synthesize(self, observations: list[Observation]) -> ExperienceResult:
         """Create final experience from observations."""
         pass
 

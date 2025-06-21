@@ -11,7 +11,7 @@ class IdleDetector:
         """Initialize idle detector.
 
         Args:
-            idle_threshold: Seconds of inactivity before considering idle (default: 15 minutes)
+            idle_threshold: Seconds before idle (default: 15m)
         """
         self.idle_threshold = idle_threshold
         self.last_activity = datetime.now()
