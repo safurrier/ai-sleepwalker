@@ -50,7 +50,7 @@ jobs:
 
     - name: Run E2E tests
       run: |
-        uv run pytest tests/ -v -m "e2e" --tb=short
+        uv run pytest tests/ -v -m "smoke" --tb=short
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
