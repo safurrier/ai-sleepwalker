@@ -4,21 +4,21 @@ These tests validate critical user journeys work end-to-end, focusing on
 behavior rather than implementation details. Uses test doubles for reliability.
 """
 
-import pytest
-from pathlib import Path
-from unittest.mock import patch
 import tempfile
+from pathlib import Path
 
+import pytest
+
+from ai_sleepwalker.experiences.base import ExperienceType
 from tests.fixtures.test_doubles import (
+    FakeExperienceCollector,
+    FakeExperienceSynthesizer,
     FakeIdleDetector,
     FakeSleepPreventer,
     InMemoryFilesystemExplorer,
-    FakeExperienceCollector,
-    FakeExperienceSynthesizer,
-    create_test_discoveries,
     create_temp_output_structure,
+    create_test_discoveries,
 )
-from ai_sleepwalker.experiences.base import ExperienceType
 
 
 @pytest.mark.smoke
@@ -47,13 +47,12 @@ async def test_idle_detection_and_exploration_workflow():
     """Critical: System detects idle state and begins exploration."""
     # Arrange - Use test doubles for predictable behavior
     idle_detector = FakeIdleDetector(is_idle=True)
-    sleep_preventer = FakeSleepPreventer()
     discoveries = create_test_discoveries()
     explorer = InMemoryFilesystemExplorer(discoveries)
 
     # Act - Simulate the core workflow
     with tempfile.TemporaryDirectory() as temp_dir:
-        output_dir = create_temp_output_structure(Path(temp_dir))
+        create_temp_output_structure(Path(temp_dir))
 
         # Simulate exploration session
         exploration_results = []
@@ -174,8 +173,8 @@ def test_sleep_prevention_lifecycle():
 @pytest.mark.smoke
 def test_experience_type_factory_system():
     """Critical: Experience system supports different modes."""
-    from ai_sleepwalker.experiences.factory import ExperienceFactory
     from ai_sleepwalker.experiences.base import ExperienceType
+    from ai_sleepwalker.experiences.factory import ExperienceFactory
 
     # Test that factory can create dream components
     collector = ExperienceFactory.create_collector(ExperienceType.DREAM)
@@ -210,9 +209,9 @@ def test_configuration_and_defaults():
 @pytest.mark.smoke
 def test_component_interfaces_defined():
     """Critical: All core components have proper interfaces."""
+    from ai_sleepwalker.core.filesystem_explorer import FilesystemExplorer
     from ai_sleepwalker.core.idle_detector import IdleDetector
     from ai_sleepwalker.core.sleep_preventer import SleepPreventer
-    from ai_sleepwalker.core.filesystem_explorer import FilesystemExplorer
 
     # Test that classes can be instantiated (basic contract)
     idle_detector = IdleDetector()

@@ -7,11 +7,10 @@ Following testing conventions:
 - Focus on observable outcomes
 """
 
-import time
 import threading
+import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta
-from typing import Optional
 
 import pytest
 
@@ -96,7 +95,7 @@ class TestIdleDetectionBehavior:
 
     @pytest.mark.parametrize("case", idle_detection_cases)
     def test_idle_detection_with_various_thresholds(self, case: IdleTestCase) -> None:
-        """IdleDetector correctly determines idle state across different threshold scenarios."""
+        """IdleDetector correctly determines idle state across threshold scenarios."""
         detector = IdleDetector(
             idle_threshold=case.threshold_seconds, start_listeners=False
         )
