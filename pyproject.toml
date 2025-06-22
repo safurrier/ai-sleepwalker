@@ -79,3 +79,8 @@ select = [
     "C4", # flake8-comprehensions
     "UP", # pyupgrade
 ]
+
+[dependency-groups]
+dev = [
+    "types-pynput>=1.8.1.20250318",
+]
