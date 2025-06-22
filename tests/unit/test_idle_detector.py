@@ -37,12 +37,14 @@ class TestIdleDetectorInitialization:
         yield detector
         detector.stop()
 
+    @pytest.mark.unit
     def test_initializes_with_default_threshold(
         self, detector_without_listeners: IdleDetector
     ) -> None:
         """IdleDetector uses 15-minute default threshold when not specified."""
         assert detector_without_listeners.idle_threshold == 900  # 15 minutes
 
+    @pytest.mark.unit
     def test_accepts_custom_threshold(self) -> None:
         """IdleDetector accepts custom idle threshold configuration."""
         custom_threshold = 300  # 5 minutes
@@ -53,12 +55,14 @@ class TestIdleDetectorInitialization:
         finally:
             detector.stop()
 
+    @pytest.mark.unit
     def test_starts_in_active_state(
         self, detector_without_listeners: IdleDetector
     ) -> None:
         """IdleDetector starts in active state (not idle) after creation."""
         assert not detector_without_listeners.is_idle
 
+    @pytest.mark.unit
     def test_tracks_creation_timestamp(
         self, detector_without_listeners: IdleDetector
     ) -> None:
@@ -94,6 +98,7 @@ class TestIdleDetectionBehavior:
     ]
 
     @pytest.mark.parametrize("case", idle_detection_cases)
+    @pytest.mark.unit
     def test_idle_detection_with_various_thresholds(self, case: IdleTestCase) -> None:
         """IdleDetector correctly determines idle state across threshold scenarios."""
         detector = IdleDetector(
@@ -114,6 +119,7 @@ class TestIdleDetectionBehavior:
         finally:
             detector.stop()
 
+    @pytest.mark.unit
     def test_activity_resets_idle_state(
         self, detector_with_short_threshold: IdleDetector
     ) -> None:
@@ -130,6 +136,7 @@ class TestIdleDetectionBehavior:
         # Assert - Should no longer be idle
         assert not detector_with_short_threshold.is_idle
 
+    @pytest.mark.unit
     def test_activity_updates_timestamp(
         self, detector_with_short_threshold: IdleDetector
     ) -> None:
@@ -144,6 +151,7 @@ class TestIdleDetectionBehavior:
         # Assert - Timestamp should be updated to more recent time
         assert detector_with_short_threshold.last_activity > old_timestamp
 
+    @pytest.mark.unit
     def test_activity_callback_accepts_various_arguments(self) -> None:
         """Activity callback handles various argument patterns from pynput listeners."""
         detector = IdleDetector(idle_threshold=2, start_listeners=False)
@@ -171,6 +179,7 @@ class TestIdleDetectionBehavior:
 class TestIdleDetectorLifecycle:
     """Test suite for IdleDetector lifecycle management and cleanup."""
 
+    @pytest.mark.unit
     def test_stop_method_exists_and_callable(self) -> None:
         """IdleDetector provides stop method for clean shutdown."""
         detector = IdleDetector(start_listeners=False)
@@ -181,6 +190,7 @@ class TestIdleDetectorLifecycle:
         # Should be safe to call stop multiple times
         detector.stop()
 
+    @pytest.mark.unit
     def test_stop_method_is_idempotent(self) -> None:
         """Calling stop multiple times is safe and has no side effects."""
         detector = IdleDetector(start_listeners=False)
@@ -193,6 +203,7 @@ class TestIdleDetectorLifecycle:
 class TestThreadSafety:
     """Test suite for thread safety of IdleDetector operations."""
 
+    @pytest.mark.unit
     def test_concurrent_activity_updates_are_thread_safe(self) -> None:
         """Multiple threads can safely update activity timestamps concurrently."""
         detector = IdleDetector(start_listeners=False)
@@ -221,6 +232,7 @@ class TestThreadSafety:
         finally:
             detector.stop()
 
+    @pytest.mark.unit
     def test_idle_state_checks_are_thread_safe(self) -> None:
         """Checking idle state from multiple threads is safe."""
         detector = IdleDetector(idle_threshold=1, start_listeners=False)
@@ -252,6 +264,7 @@ class TestThreadSafety:
 class TestIntegrationBoundaries:
     """Test integration points and expected interfaces for other components."""
 
+    @pytest.mark.unit
     def test_provides_expected_interface(self) -> None:
         """IdleDetector provides the interface expected by other components."""
         detector = IdleDetector(start_listeners=False)
@@ -271,6 +284,7 @@ class TestIntegrationBoundaries:
         finally:
             detector.stop()
 
+    @pytest.mark.unit
     def test_supports_dependency_injection_for_testing(self) -> None:
         """IdleDetector supports dependency injection pattern for testing."""
         # Can be created without starting real listeners
