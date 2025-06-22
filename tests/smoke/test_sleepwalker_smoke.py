@@ -214,7 +214,7 @@ def test_component_interfaces_defined():
     from ai_sleepwalker.core.sleep_preventer import SleepPreventer
 
     # Test that classes can be instantiated (basic contract)
-    idle_detector = IdleDetector()
+    idle_detector = IdleDetector(start_listeners=False)  # Don't start listeners in CI
     sleep_preventer = SleepPreventer()
     explorer = FilesystemExplorer(["/tmp"])  # Safe test directory
 
