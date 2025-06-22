@@ -31,7 +31,8 @@ class IdleDetector:
             self._setup_listeners()
 
         logger.debug(
-            f"IdleDetector initialized. [threshold={idle_threshold}s, listeners={start_listeners}]"
+            f"IdleDetector initialized. [threshold={idle_threshold}s, "
+            f"listeners={start_listeners}]"
         )
 
     def _setup_listeners(self) -> None:
@@ -55,7 +56,7 @@ class IdleDetector:
         """Check if system has been idle long enough."""
         with self._activity_lock:
             elapsed = (datetime.now() - self.last_activity).total_seconds()
-            return elapsed > self.idle_threshold
+            return elapsed >= self.idle_threshold
 
     def stop(self) -> None:
         """Stop pynput listeners for clean shutdown."""

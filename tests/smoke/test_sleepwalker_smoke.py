@@ -73,24 +73,26 @@ async def test_idle_detection_and_exploration_workflow():
 
 
 @pytest.mark.smoke
-def test_real_idle_detector_can_be_created_and_stopped():
-    """Critical: Real IdleDetector can be created and cleanly stopped."""
+def test_real_idle_detector_lifecycle_works():
+    """Critical: Real IdleDetector with pynput can be created and cleanly stopped."""
     from ai_sleepwalker.core.idle_detector import IdleDetector
 
-    # Arrange & Act - Create real IdleDetector
+    # Test real pynput integration (may require accessibility permissions on macOS)
     detector = IdleDetector(idle_threshold=60)  # 1 minute for test
 
     try:
-        # Assert - Should initialize without error
-        assert hasattr(detector, "is_idle")
-        assert hasattr(detector, "last_activity")
+        # Should initialize without crashing
         assert detector.idle_threshold == 60
 
-        # Should not be idle immediately
+        # Should start in active state
         assert not detector.is_idle
 
+        # Should have proper interface for integration
+        assert isinstance(detector.is_idle, bool)
+        assert hasattr(detector.last_activity, "year")  # datetime object
+
     finally:
-        # Always stop listeners for clean test shutdown
+        # Should stop cleanly without hanging
         detector.stop()
 
 
