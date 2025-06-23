@@ -171,6 +171,28 @@ def test_sleep_prevention_lifecycle():
 
 
 @pytest.mark.smoke
+async def test_real_sleep_preventer_lifecycle_works():
+    """Critical: Real SleepPreventer can activate and deactivate properly."""
+    from ai_sleepwalker.core.sleep_preventer import SleepPreventer
+
+    # Arrange - Use real SleepPreventer
+    sleep_preventer = SleepPreventer()
+
+    # Act & Assert - Test basic lifecycle
+    assert sleep_preventer.is_preventing_sleep is False
+    assert sleep_preventer.prevention_count == 0
+
+    async with sleep_preventer.prevent_sleep():
+        # Should be preventing during context
+        assert sleep_preventer.is_preventing_sleep is True
+        assert sleep_preventer.prevention_count == 1
+
+    # Should stop preventing after context exits
+    assert sleep_preventer.is_preventing_sleep is False
+    assert sleep_preventer.prevention_count == 1  # Count persists
+
+
+@pytest.mark.smoke
 def test_experience_type_factory_system():
     """Critical: Experience system supports different modes."""
     from ai_sleepwalker.experiences.base import ExperienceType
