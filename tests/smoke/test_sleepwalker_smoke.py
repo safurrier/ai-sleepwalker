@@ -10,7 +10,10 @@ from pathlib import Path
 
 import pytest
 
+from ai_sleepwalker.core.idle_detector import IdleDetector
+from ai_sleepwalker.core.sleep_preventer import SleepPreventer
 from ai_sleepwalker.experiences.base import ExperienceType
+from ai_sleepwalker.experiences.factory import ExperienceFactory
 from tests.fixtures.test_doubles import (
     FakeExperienceCollector,
     FakeExperienceSynthesizer,
@@ -76,14 +79,12 @@ async def test_idle_detection_and_exploration_workflow():
 
 
 @pytest.mark.smoke
+@pytest.mark.skipif(
+    bool(os.getenv("CI")) or bool(os.getenv("GITHUB_ACTIONS")),
+    reason="Real idle detection testing not supported in CI environment",
+)
 def test_real_idle_detector_lifecycle_works():
     """Critical: Real IdleDetector with pynput can be created and cleanly stopped."""
-    # Skip in CI environments to avoid system dependency issues
-    is_ci = os.getenv("CI") or os.getenv("GITHUB_ACTIONS")
-    if is_ci:
-        pytest.skip("Real idle detection testing not supported in CI environment")
-
-    from ai_sleepwalker.core.idle_detector import IdleDetector
 
     # Test real pynput integration (local testing only)
     detector = IdleDetector(idle_threshold=60)
@@ -180,15 +181,12 @@ def test_sleep_prevention_lifecycle():
 
 
 @pytest.mark.smoke
+@pytest.mark.skipif(
+    bool(os.getenv("CI")) or bool(os.getenv("GITHUB_ACTIONS")),
+    reason="Real sleep prevention testing not supported in CI environment",
+)
 async def test_real_sleep_preventer_lifecycle_works():
     """Critical: Real SleepPreventer can activate and deactivate properly."""
-    from ai_sleepwalker.core.sleep_preventer import SleepPreventer
-
-    # Check if running in CI environment - skip real wakepy testing in CI
-    is_ci = os.getenv("CI") or os.getenv("GITHUB_ACTIONS")
-    if is_ci:
-        pytest.skip("Real sleep prevention testing not supported in CI environment")
-
     # Arrange - Use real SleepPreventer (local testing only)
     sleep_preventer = SleepPreventer()
 
@@ -209,8 +207,6 @@ async def test_real_sleep_preventer_lifecycle_works():
 @pytest.mark.smoke
 def test_sleep_preventer_interface_works():
     """Critical: SleepPreventer interface is available and properly structured."""
-    from ai_sleepwalker.core.sleep_preventer import SleepPreventer
-
     # Test component interface without system dependencies
     sleep_preventer = SleepPreventer()
 
@@ -229,8 +225,6 @@ def test_sleep_preventer_interface_works():
 @pytest.mark.smoke
 def test_idle_detector_interface_works():
     """Critical: IdleDetector interface is available and properly structured."""
-    from ai_sleepwalker.core.idle_detector import IdleDetector
-
     # Test component interface without system dependencies
     idle_detector = IdleDetector(start_listeners=False)
 
@@ -254,9 +248,6 @@ def test_idle_detector_interface_works():
 @pytest.mark.smoke
 def test_experience_type_factory_system():
     """Critical: Experience system supports different modes."""
-    from ai_sleepwalker.experiences.base import ExperienceType
-    from ai_sleepwalker.experiences.factory import ExperienceFactory
-
     # Test that factory can create dream components
     collector = ExperienceFactory.create_collector(ExperienceType.DREAM)
     synthesizer = ExperienceFactory.create_synthesizer(ExperienceType.DREAM)
@@ -292,8 +283,7 @@ def test_component_interfaces_defined():
     """Critical: All core components have proper interfaces."""
     try:
         from ai_sleepwalker.core.filesystem_explorer import FilesystemExplorer
-        from ai_sleepwalker.core.idle_detector import IdleDetector
-        from ai_sleepwalker.core.sleep_preventer import SleepPreventer
+        # IdleDetector and SleepPreventer already imported at top
     except ImportError as e:
         pytest.fail(f"Failed to import core components: {e}")
 
