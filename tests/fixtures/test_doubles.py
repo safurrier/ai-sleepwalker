@@ -11,13 +11,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from ai_sleepwalker.constants import DiscoveryType
 from ai_sleepwalker.experiences.base import (
     ExperienceResult,
     ExperienceType,
     Observation,
 )
 from ai_sleepwalker.models import FileSystemDiscovery
-from ai_sleepwalker.constants import DiscoveryType
 
 
 class FakeIdleDetector:
@@ -66,10 +66,10 @@ class InMemoryFilesystemExplorer:
     def wander(self) -> FileSystemDiscovery | None:
         """Return next discovery or None if exhausted."""
         self.wander_count += 1
-        
+
         if self._index >= len(self._discoveries):
             return None
-            
+
         result = self._discoveries[self._index]
         self._index += 1
         return result
@@ -119,13 +119,13 @@ class FakeExperienceSynthesizer:
     async def synthesize(self, observations: list[Observation]) -> ExperienceResult:
         """Create test experience result with predictable content."""
         self.synthesize_count += 1
-        
+
         now = datetime.now()
         start_time = observations[0].timestamp if observations else now
-        
+
         # Create predictable content based on observation count
         content = self._generate_test_content(len(observations))
-        
+
         return ExperienceResult(
             experience_type=self._experience_type,
             session_start=start_time,
@@ -165,16 +165,8 @@ class FakeLLMClient:
         self.requests.append(kwargs)
         response_text = self.responses[self.call_count % len(self.responses)]
         self.call_count += 1
-        
-        return {
-            "choices": [
-                {
-                    "message": {
-                        "content": response_text
-                    }
-                }
-            ]
-        }
+
+        return {"choices": [{"message": {"content": response_text}}]}
 
 
 def create_test_discoveries() -> list[FileSystemDiscovery]:

@@ -11,7 +11,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [macos-latest]  # Only macOS for now due to pynput dependency
         python-version: ["3.10", "3.11", "3.12"]
 
     steps:
@@ -27,7 +27,7 @@ jobs:
 
     - name: Install dependencies
       run: |
-        uv sync --dev
+        uv sync --extra dev
 
     - name: Run linting
       run: |
@@ -50,7 +50,7 @@ jobs:
 
     - name: Run E2E tests
       run: |
-        uv run pytest tests/ -v -m "e2e" --tb=short
+        uv run pytest tests/ -v -m "smoke" --tb=short
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
