@@ -4,12 +4,16 @@ These tests validate critical user journeys work end-to-end, focusing on
 behavior rather than implementation details. Uses test doubles for reliability.
 """
 
+import os
 import tempfile
 from pathlib import Path
 
 import pytest
 
+from ai_sleepwalker.core.idle_detector import IdleDetector
+from ai_sleepwalker.core.sleep_preventer import SleepPreventer
 from ai_sleepwalker.experiences.base import ExperienceType
+from ai_sleepwalker.experiences.factory import ExperienceFactory
 from tests.fixtures.test_doubles import (
     FakeExperienceCollector,
     FakeExperienceSynthesizer,
@@ -24,7 +28,10 @@ from tests.fixtures.test_doubles import (
 @pytest.mark.smoke
 def test_sleepwalker_cli_starts_successfully():
     """Critical: CLI interface loads without errors."""
-    from ai_sleepwalker.cli import sleepwalk
+    try:
+        from ai_sleepwalker.cli import sleepwalk
+    except ImportError as e:
+        pytest.fail(f"Failed to import CLI module: {e}")
 
     # Test that CLI command can be imported and has expected interface
     assert callable(sleepwalk)
@@ -72,12 +79,15 @@ async def test_idle_detection_and_exploration_workflow():
 
 
 @pytest.mark.smoke
+@pytest.mark.skipif(
+    bool(os.getenv("CI")) or bool(os.getenv("GITHUB_ACTIONS")),
+    reason="Real idle detection testing not supported in CI environment",
+)
 def test_real_idle_detector_lifecycle_works():
     """Critical: Real IdleDetector with pynput can be created and cleanly stopped."""
-    from ai_sleepwalker.core.idle_detector import IdleDetector
 
-    # Test real pynput integration (may require accessibility permissions on macOS)
-    detector = IdleDetector(idle_threshold=60)  # 1 minute for test
+    # Test real pynput integration (local testing only)
+    detector = IdleDetector(idle_threshold=60)
 
     try:
         # Should initialize without crashing
@@ -171,11 +181,73 @@ def test_sleep_prevention_lifecycle():
 
 
 @pytest.mark.smoke
+@pytest.mark.skipif(
+    bool(os.getenv("CI")) or bool(os.getenv("GITHUB_ACTIONS")),
+    reason="Real sleep prevention testing not supported in CI environment",
+)
+async def test_real_sleep_preventer_lifecycle_works():
+    """Critical: Real SleepPreventer can activate and deactivate properly."""
+    # Arrange - Use real SleepPreventer (local testing only)
+    sleep_preventer = SleepPreventer()
+
+    # Act & Assert - Test basic lifecycle
+    assert sleep_preventer.is_preventing_sleep is False
+    assert sleep_preventer.prevention_count == 0
+
+    async with sleep_preventer.prevent_sleep():
+        # Should be preventing during context
+        assert sleep_preventer.is_preventing_sleep is True
+        assert sleep_preventer.prevention_count == 1
+
+    # Should stop preventing after context exits
+    assert sleep_preventer.is_preventing_sleep is False
+    assert sleep_preventer.prevention_count == 1  # Count persists
+
+
+@pytest.mark.smoke
+def test_sleep_preventer_interface_works():
+    """Critical: SleepPreventer interface is available and properly structured."""
+    # Test component interface without system dependencies
+    sleep_preventer = SleepPreventer()
+
+    # Verify interface exists
+    assert hasattr(sleep_preventer, "prevent_sleep")
+    assert hasattr(sleep_preventer, "is_preventing_sleep")
+    assert hasattr(sleep_preventer, "prevention_count")
+
+    # Verify initial state
+    assert sleep_preventer.is_preventing_sleep is False
+    assert sleep_preventer.prevention_count == 0
+    assert isinstance(sleep_preventer.is_preventing_sleep, bool)
+    assert isinstance(sleep_preventer.prevention_count, int)
+
+
+@pytest.mark.smoke
+def test_idle_detector_interface_works():
+    """Critical: IdleDetector interface is available and properly structured."""
+    # Test component interface without system dependencies
+    idle_detector = IdleDetector(start_listeners=False)
+
+    try:
+        # Verify interface exists
+        assert hasattr(idle_detector, "is_idle")
+        assert hasattr(idle_detector, "idle_threshold")
+        assert hasattr(idle_detector, "last_activity")
+        assert hasattr(idle_detector, "stop")
+
+        # Verify initial state
+        assert isinstance(idle_detector.is_idle, bool)
+        assert isinstance(idle_detector.idle_threshold, int | float)
+        assert hasattr(idle_detector.last_activity, "year")  # datetime object
+
+    finally:
+        # Clean shutdown
+        idle_detector.stop()
+
+
+@pytest.mark.smoke
 def test_experience_type_factory_system():
     """Critical: Experience system supports different modes."""
-    from ai_sleepwalker.experiences.base import ExperienceType
-    from ai_sleepwalker.experiences.factory import ExperienceFactory
-
     # Test that factory can create dream components
     collector = ExperienceFactory.create_collector(ExperienceType.DREAM)
     synthesizer = ExperienceFactory.create_synthesizer(ExperienceType.DREAM)
@@ -209,14 +281,19 @@ def test_configuration_and_defaults():
 @pytest.mark.smoke
 def test_component_interfaces_defined():
     """Critical: All core components have proper interfaces."""
-    from ai_sleepwalker.core.filesystem_explorer import FilesystemExplorer
-    from ai_sleepwalker.core.idle_detector import IdleDetector
-    from ai_sleepwalker.core.sleep_preventer import SleepPreventer
+    try:
+        from ai_sleepwalker.core.filesystem_explorer import FilesystemExplorer
+        # IdleDetector and SleepPreventer already imported at top
+    except ImportError as e:
+        pytest.fail(f"Failed to import core components: {e}")
 
     # Test that classes can be instantiated (basic contract)
-    idle_detector = IdleDetector(start_listeners=False)  # Don't start listeners in CI
-    sleep_preventer = SleepPreventer()
-    explorer = FilesystemExplorer(["/tmp"])  # Safe test directory
+    try:
+        idle_detector = IdleDetector(start_listeners=False)  # Don't start in CI
+        sleep_preventer = SleepPreventer()
+        explorer = FilesystemExplorer(["/tmp"])  # Safe test directory
+    except Exception as e:
+        pytest.fail(f"Failed to instantiate components: {e}")
 
     # Test that they have expected interfaces
     assert hasattr(idle_detector, "is_idle")
