@@ -367,4 +367,3 @@ class TestAsyncBehavior:
                 assert all(result == "async_complete" for result in results)
 
             assert sleep_preventer.is_preventing_sleep is False
-
