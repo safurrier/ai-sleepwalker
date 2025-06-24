@@ -113,32 +113,35 @@ class TestFilesystemExplorerWandering:
             if discovery is not None:
                 assert isinstance(discovery, FileSystemDiscovery)
 
-    @pytest.mark.parametrize("test_case", [
-        ExplorationTestCase(
-            name="mixed_files_and_directories",
-            file_structure={
-                "doc1.txt": "Document content",
-                "script.py": "print('test')",
-                "data/": {},
-                "data/nested.json": '{"key": "value"}',
-                "images/": {},
-                "images/pic.jpg": b"fake_image_data"
-            },
-            expected_discovery_types={"file", "directory"},
-            min_discoveries=3
-        ),
-        ExplorationTestCase(
-            name="deep_directory_structure",
-            file_structure={
-                "level1/": {},
-                "level1/level2/": {},
-                "level1/level2/level3/": {},
-                "level1/level2/level3/deep_file.txt": "deep content"
-            },
-            expected_discovery_types={"file", "directory"},
-            min_discoveries=2
-        )
-    ])
+    @pytest.mark.parametrize(
+        "test_case",
+        [
+            ExplorationTestCase(
+                name="mixed_files_and_directories",
+                file_structure={
+                    "doc1.txt": "Document content",
+                    "script.py": "print('test')",
+                    "data/": {},
+                    "data/nested.json": '{"key": "value"}',
+                    "images/": {},
+                    "images/pic.jpg": b"fake_image_data",
+                },
+                expected_discovery_types={"file", "directory"},
+                min_discoveries=3,
+            ),
+            ExplorationTestCase(
+                name="deep_directory_structure",
+                file_structure={
+                    "level1/": {},
+                    "level1/level2/": {},
+                    "level1/level2/level3/": {},
+                    "level1/level2/level3/deep_file.txt": "deep content",
+                },
+                expected_discovery_types={"file", "directory"},
+                min_discoveries=2,
+            ),
+        ],
+    )
     def test_wander_explores_various_structures(self, test_case: ExplorationTestCase):
         """Test exploration behavior with different filesystem structures."""
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -242,26 +245,29 @@ class TestFilesystemExplorerWandering:
 class TestFilesystemExplorerSecurity:
     """Test security boundaries and path validation."""
 
-    @pytest.mark.parametrize("test_case", [
-        SecurityTestCase(
-            name="directory_traversal_attack",
-            allowed_dirs=["/tmp/safe"],
-            attack_path="/tmp/safe/../../../etc/passwd",
-            should_be_safe=False
-        ),
-        SecurityTestCase(
-            name="subdirectory_access",
-            allowed_dirs=["/tmp/safe"],
-            attack_path="/tmp/safe/subdir/file.txt",
-            should_be_safe=True
-        ),
-        SecurityTestCase(
-            name="sibling_directory_attack",
-            allowed_dirs=["/tmp/safe"],
-            attack_path="/tmp/unsafe/file.txt",
-            should_be_safe=False
-        )
-    ])
+    @pytest.mark.parametrize(
+        "test_case",
+        [
+            SecurityTestCase(
+                name="directory_traversal_attack",
+                allowed_dirs=["/tmp/safe"],
+                attack_path="/tmp/safe/../../../etc/passwd",
+                should_be_safe=False,
+            ),
+            SecurityTestCase(
+                name="subdirectory_access",
+                allowed_dirs=["/tmp/safe"],
+                attack_path="/tmp/safe/subdir/file.txt",
+                should_be_safe=True,
+            ),
+            SecurityTestCase(
+                name="sibling_directory_attack",
+                allowed_dirs=["/tmp/safe"],
+                attack_path="/tmp/unsafe/file.txt",
+                should_be_safe=False,
+            ),
+        ],
+    )
     def test_is_safe_path_validates_boundaries(self, test_case: SecurityTestCase):
         """Test that _is_safe_path properly validates security boundaries."""
         with tempfile.TemporaryDirectory() as temp_dir:
@@ -396,7 +402,7 @@ class TestFilesystemExplorerDiscoveryCreation:
 
             # Create binary file
             binary_file = temp_path / "image.jpg"
-            binary_file.write_bytes(b"\x89PNG\x0D\x0A\x1A\x0A fake binary data")
+            binary_file.write_bytes(b"\x89PNG\x0d\x0a\x1a\x0a fake binary data")
 
             explorer = FilesystemExplorer([str(temp_path)])
 
