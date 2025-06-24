@@ -90,13 +90,16 @@ class TestFilesystemExplorerWandering:
 
             # Assert: Should discover items with some variation
             assert len(discoveries) > 0, "Should discover at least some items"
-            assert len(set(d.path for d in discoveries)) > 1, "Should show some variation in discoveries"
+            assert len({d.path for d in discoveries}) > 1, "Should show some variation"
 
             # All discoveries should be within allowed boundaries
             # Need to resolve temp_path to handle symlink resolution on macOS
             resolved_temp_path = temp_path.resolve()
             for discovery in discoveries:
-                assert discovery.path.is_relative_to(resolved_temp_path), f"Discovery {discovery.path} outside allowed boundary {resolved_temp_path}"
+                assert discovery.path.is_relative_to(resolved_temp_path), (
+                    f"Discovery {discovery.path} outside allowed boundary "
+                    f"{resolved_temp_path}"
+                )
 
     def test_wander_returns_none_for_empty_directories(self):
         """Test that wander() handles empty directories gracefully."""
@@ -157,20 +160,28 @@ class TestFilesystemExplorerWandering:
 
             # Collect discoveries
             discoveries = []
-            for _ in range(50):  # Try more times for random exploration to hit both types
+            # Try more times for random exploration to hit both types
+            for _ in range(50):
                 discovery = explorer.wander()
                 if discovery:
                     discoveries.append(discovery)
                 # Stop early if we have enough discoveries AND both types
                 discovered_types = {d.discovery_type for d in discoveries}
-                if len(discoveries) >= test_case.min_discoveries and test_case.expected_discovery_types.issubset(discovered_types):
+                if (
+                    len(discoveries) >= test_case.min_discoveries
+                    and test_case.expected_discovery_types.issubset(discovered_types)
+                ):
                     break
 
             # Verify exploration behavior
-            assert len(discoveries) >= test_case.min_discoveries, f"Should find at least {test_case.min_discoveries} items"
+            assert len(discoveries) >= test_case.min_discoveries, (
+                f"Should find at least {test_case.min_discoveries} items"
+            )
 
             discovered_types = {d.discovery_type for d in discoveries}
-            assert test_case.expected_discovery_types.issubset(discovered_types), f"Should discover types: {test_case.expected_discovery_types}"
+            assert test_case.expected_discovery_types.issubset(discovered_types), (
+                f"Should discover types: {test_case.expected_discovery_types}"
+            )
 
     def test_wander_respects_depth_limits(self):
         """Test that exploration respects MAX_EXPLORATION_DEPTH."""
@@ -198,7 +209,9 @@ class TestFilesystemExplorerWandering:
             for discovery in discoveries:
                 relative_path = discovery.path.relative_to(resolved_temp_path)
                 depth = len(relative_path.parts) - 1  # Subtract 1 for the file itself
-                assert depth <= MAX_EXPLORATION_DEPTH, f"Discovery at {discovery.path} exceeds depth limit"
+                assert depth <= MAX_EXPLORATION_DEPTH, (
+                    f"Discovery at {discovery.path} exceeds depth limit"
+                )
 
     def test_wander_respects_discovery_limits(self):
         """Test that exploration respects MAX_DISCOVERIES_PER_SESSION."""
@@ -221,7 +234,9 @@ class TestFilesystemExplorerWandering:
                     break  # Explorer should stop when limit reached
 
             # Should respect the discovery limit
-            assert len(discoveries) <= MAX_DISCOVERIES_PER_SESSION, "Should not exceed discovery limit"
+            assert len(discoveries) <= MAX_DISCOVERIES_PER_SESSION, (
+                "Should not exceed discovery limit"
+            )
 
 
 class TestFilesystemExplorerSecurity:
@@ -257,12 +272,16 @@ class TestFilesystemExplorerSecurity:
 
             # Construct test path relative to our temp structure
             if test_case.attack_path.startswith("/tmp/safe"):
-                test_path = Path(test_case.attack_path.replace("/tmp/safe", str(safe_dir)))
+                test_path = Path(
+                    test_case.attack_path.replace("/tmp/safe", str(safe_dir))
+                )
             else:
                 test_path = Path(test_case.attack_path)
 
             result = explorer._is_safe_path(test_path)
-            assert result == test_case.should_be_safe, f"Security validation failed for {test_case.name}"
+            assert result == test_case.should_be_safe, (
+                f"Security validation failed for {test_case.name}"
+            )
 
     def test_wander_never_escapes_allowed_directories(self):
         """Test that wander() never returns discoveries outside allowed dirs."""
@@ -287,7 +306,10 @@ class TestFilesystemExplorerSecurity:
                 if discovery:
                     # Every discovery must be within safe directory
                     resolved_safe_dir = safe_dir.resolve()
-                    assert discovery.path.is_relative_to(resolved_safe_dir), f"Security breach: {discovery.path} outside safe directory {resolved_safe_dir}"
+                    assert discovery.path.is_relative_to(resolved_safe_dir), (
+                        f"Security breach: {discovery.path} outside safe directory "
+                        f"{resolved_safe_dir}"
+                    )
 
     def test_wander_handles_permission_errors_gracefully(self):
         """Test that wander() handles permission errors without crashing."""
