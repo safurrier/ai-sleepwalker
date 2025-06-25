@@ -1,4 +1,4 @@
-.PHONY: compile-deps setup clean-pyc clean-test clean-venv clean test mypy lint format check clean-example docs-install docs-build docs-serve docs-check docs-clean dev-env refresh-containers rebuild-images build-image push-image
+.PHONY: compile-deps setup clean-pyc clean-test clean-venv clean test mypy lint format check demo clean-example docs-install docs-build docs-serve docs-check docs-clean dev-env refresh-containers rebuild-images build-image push-image
 
 # Module name - will be updated by init script
 MODULE_NAME := ai_sleepwalker
@@ -61,6 +61,21 @@ format: setup  # Run ruff formatter
 	uv run -m ruff format $(MODULE_NAME)
 
 check: setup lint format test mypy  # Run all quality checks
+
+demo: setup  # Run dream generation demo
+	@echo "🌙 Starting AI Sleepwalker Dream Generation Demo"
+	@echo "================================================"
+	@if [ -z "$$GEMINI_API_KEY" ] && [ -z "$$OPENAI_API_KEY" ]; then \
+		echo "⚠️  No API keys found - demo will use fallback content"; \
+		echo "   To use real LLM, set one of:"; \
+		echo "   export GEMINI_API_KEY='your-key'"; \
+		echo "   export OPENAI_API_KEY='your-key'"; \
+		echo ""; \
+	else \
+		echo "🔑 API keys detected - will use real LLM for generation"; \
+		echo ""; \
+	fi
+	uv run python scripts/demo_dream_generation.py
 
 # Documentation
 ###############
