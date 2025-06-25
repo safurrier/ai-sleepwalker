@@ -6,6 +6,9 @@ from dataclasses import dataclass
 from datetime import datetime
 
 import litellm
+
+# Suppress verbose LiteLLM logging
+litellm.suppress_debug_info = True
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 from ..experiences.base import ExperienceResult, ExperienceType, Observation
@@ -65,11 +68,11 @@ class LLMClient:
 
         for model in self._models_to_try:
             try:
-                logger.info(f"Attempting dream generation with model: {model}")
+                logger.debug(f"Attempting dream generation with model: {model}")
                 result = await self._try_model_with_retry(
                     model, prompt, observations, start_time
                 )
-                logger.info(
+                logger.debug(
                     f"Dream generation successful with {model}. "
                     f"Duration: {result.metadata['duration_seconds']:.2f}s"
                 )
@@ -77,7 +80,7 @@ class LLMClient:
             except Exception as e:
                 last_error = e
                 models_attempted.append(model)
-                logger.warning(f"Model {model} failed: {e}")
+                logger.debug(f"Model {model} failed: {e}")
                 continue
 
         # All models failed

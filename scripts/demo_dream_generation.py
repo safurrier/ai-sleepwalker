@@ -6,9 +6,23 @@ using the complete LLM integration pipeline.
 """
 
 import asyncio
+import logging
 import os
+import warnings
 from datetime import datetime
 from pathlib import Path
+
+# Suppress verbose LiteLLM output
+os.environ["LITELLM_LOG"] = "ERROR"
+logging.getLogger("LiteLLM").setLevel(logging.ERROR)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("aiohttp").setLevel(logging.WARNING)
+
+# Suppress pydantic warnings
+warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
+# Suppress aiohttp unclosed session warnings 
+warnings.filterwarnings("ignore", message="Unclosed client session")
+warnings.filterwarnings("ignore", message="Unclosed connector")
 
 from ai_sleepwalker.constants import DiscoveryType
 from ai_sleepwalker.experiences.base import ExperienceType
@@ -98,10 +112,16 @@ async def generate_sample_dream() -> None:
     start_time = datetime.now()
     
     try:
-        result = await synthesizer.synthesize(observations)
+        # Temporarily suppress logging during generation
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            result = await synthesizer.synthesize(observations)
         
         generation_time = (datetime.now() - start_time).total_seconds()
         print(f"⚡ Generated in {generation_time:.2f} seconds")
+        
+        # Give a brief moment for any async cleanup
+        await asyncio.sleep(0.1)
         
         # Display results
         print("\n" + "=" * 70)
@@ -135,6 +155,10 @@ async def generate_sample_dream() -> None:
     except Exception as e:
         print(f"❌ Error generating dream: {e}")
         print("   This might happen if there are API issues or configuration problems")
+    
+    finally:
+        # Final cleanup to prevent unclosed session warnings
+        await asyncio.sleep(0.2)
 
 
 if __name__ == "__main__":
