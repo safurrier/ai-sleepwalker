@@ -67,22 +67,33 @@ class DreamSynthesizer(ExperienceSynthesizer):
         if not observations:
             return self._create_empty_dream()
 
-        # TODO: Implement LLM-based dream generation
-        # For now, create a simple placeholder
-        dream_content = self._create_placeholder_dream(observations)
+        # Use LLM-based dream generation
+        from ..core.llm_client import LLMClient, LLMConfig, LLMError
 
-        return ExperienceResult(
-            experience_type=ExperienceType.DREAM,
-            session_start=observations[0].timestamp,
-            session_end=observations[-1].timestamp,
-            total_observations=len(observations),
-            content=dream_content,
-            metadata={
-                "mood": "contemplative",
-                "key_discoveries": [obs.brief_note for obs in observations[:3]],
-            },
-            file_extension=".md",
-        )
+        client = LLMClient(LLMConfig(model=self.model))
+        try:
+            return await client.generate_dream(observations)
+        except LLMError as e:
+            # Graceful fallback for LLM-specific failures
+            print(f"⚠️  LLM generation failed: {e}")
+            print("🔄 Using fallback dream content...")
+
+            dream_content = self._create_placeholder_dream(observations)
+
+            return ExperienceResult(
+                experience_type=ExperienceType.DREAM,
+                session_start=observations[0].timestamp,
+                session_end=observations[-1].timestamp,
+                total_observations=len(observations),
+                content=dream_content,
+                metadata={
+                    "mood": "contemplative",
+                    "key_discoveries": [obs.brief_note for obs in observations[:3]],
+                    "fallback_reason": str(e),
+                    "fallback_used": True,
+                },
+                file_extension=".md",
+            )
 
     def _create_empty_dream(self) -> ExperienceResult:
         """Create result for when no observations were made."""
