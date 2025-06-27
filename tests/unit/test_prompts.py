@@ -150,7 +150,7 @@ class TestDreamPromptFormatting:
         prompt = format_dream_prompt(simple_observations)
 
         # Should contain original template content
-        assert "Recent discoveries" in prompt
+        assert "Digital sleepwalking" in prompt
 
         # Should have observations section
         lines = prompt.split("\n")

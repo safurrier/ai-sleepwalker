@@ -63,7 +63,7 @@ class TestLLMConfig:
         config = LLMConfig()
 
         assert config.model == "gemini/gemini-2.5-flash-preview"
-        assert config.timeout == 10
+        assert config.timeout == 15
         assert config.max_tokens is None
         assert config.temperature is None
 
