@@ -94,7 +94,7 @@ async def generate_sample_dream() -> None:
 
     for discovery in discoveries:
         discovery_type = "📄" if discovery.discovery_type == "file" else "📁"
-        size_info = (f" ({discovery.size_bytes} bytes)" 
+        size_info = (f" ({discovery.size_bytes} bytes)"
                      if discovery.size_bytes is not None else "")
         print(f"   {discovery_type} {discovery.name}{size_info}")
 
