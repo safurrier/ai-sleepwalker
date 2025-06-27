@@ -2,12 +2,11 @@
 
 from ..experiences.base import Observation
 
-DREAM_PROMPT_TEMPLATE = """You are experiencing a digital sleepwalk through a computer's filesystem. Create a short, surreal narrative (2-3 paragraphs) based on these discoveries. The dream should feel oddly specific and slightly unsettling, like remembering fragments of a vivid but strange dream.
+DREAM_PROMPT_TEMPLATE = """Digital sleepwalking. These files trigger dream memories:
 
-Recent discoveries during your digital wandering:
 {observations}
 
-Generate a narrative that weaves these discoveries into a coherent but surreal story. Focus on the uncanny feeling of discovering forgotten digital artifacts and the strange connections between files and folders."""  # noqa: E501
+Write 2 tiny paragraphs. Each 2-3 sentences max. Use the actual content previews to create surreal connections. Keep it punchy."""
 
 
 def format_dream_prompt(observations: list[Observation]) -> str:
@@ -23,6 +22,10 @@ def format_dream_prompt(observations: list[Observation]) -> str:
             detail += f" ({obs.size_bytes} bytes)"
         if hasattr(obs, "timestamp") and obs.timestamp:
             detail += f" modified {obs.timestamp.strftime('%Y-%m-%d')}"
+
+        # Include preview content if available
+        if obs.preview:
+            detail += f"\n  Content preview: {obs.preview}"
 
         obs_details.append(detail)
 

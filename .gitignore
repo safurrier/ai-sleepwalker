@@ -20,3 +20,6 @@ CLAUDE.md
 # Documentation build artifacts
 site/
 .cache/
+
+# Generated demo output
+sample_dream.md

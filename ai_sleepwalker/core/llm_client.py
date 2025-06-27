@@ -6,13 +6,13 @@ from dataclasses import dataclass
 from datetime import datetime
 
 import litellm
-
-# Suppress verbose LiteLLM logging
-litellm.suppress_debug_info = True
 from tenacity import retry, stop_after_attempt, wait_exponential
 
 from ..experiences.base import ExperienceResult, ExperienceType, Observation
 from .prompts import format_dream_prompt
+
+# Suppress verbose LiteLLM logging
+litellm.suppress_debug_info = True
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +40,7 @@ class LLMConfig:
     """Type-safe LLM configuration."""
 
     model: str = "gemini/gemini-2.5-flash-preview"
-    timeout: int = 10
+    timeout: int = 15
     max_tokens: int | None = None
     temperature: float | None = None
     fallback_models: list[str] | None = None
@@ -57,6 +57,8 @@ class LLMClient:
     def __init__(self, config: LLMConfig | None = None):
         self.config = config or LLMConfig()
         self._models_to_try = [self.config.model] + (self.config.fallback_models or [])
+        # Disable aiohttp transport to avoid unclosed session warnings
+        litellm.disable_aiohttp_transport = True
 
     async def generate_dream(self, observations: list[Observation]) -> ExperienceResult:
         """Generate dream narrative from observations with fallback models."""
@@ -92,7 +94,7 @@ class LLMClient:
         raise LLMAPIError(error_msg) from last_error
 
     @retry(
-        stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10)
+        stop=stop_after_attempt(2), wait=wait_exponential(multiplier=1, min=2, max=5)
     )
     async def _try_model_with_retry(
         self,

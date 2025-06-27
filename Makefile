@@ -1,4 +1,4 @@
-.PHONY: compile-deps setup clean-pyc clean-test clean-venv clean test mypy lint format check demo clean-example docs-install docs-build docs-serve docs-check docs-clean dev-env refresh-containers rebuild-images build-image push-image
+.PHONY: compile-deps setup clean-pyc clean-test clean-venv clean test mypy lint format check reload demo clean-example docs-install docs-build docs-serve docs-check docs-clean dev-env refresh-containers rebuild-images build-image push-image
 
 # Module name - will be updated by init script
 MODULE_NAME := ai_sleepwalker
@@ -61,6 +61,11 @@ format: setup  # Run ruff formatter
 	uv run -m ruff format $(MODULE_NAME)
 
 check: setup lint format test mypy  # Run all quality checks
+
+reload:  # Reload the package to pick up source changes
+	@echo "🔄 Reloading package to pick up source changes..."
+	uv pip install -e .
+	@echo "✅ Package reloaded"
 
 demo: setup  # Run dream generation demo
 	@echo "🌙 Starting AI Sleepwalker Dream Generation Demo"
