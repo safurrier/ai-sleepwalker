@@ -6,7 +6,7 @@ DREAM_PROMPT_TEMPLATE = """Digital sleepwalking. These files trigger dream memor
 
 {observations}
 
-Write 2 tiny paragraphs. Each 2-3 sentences max. Use content previews for surreal 
+Write 2 tiny paragraphs. Each 2-3 sentences max. Use content previews for surreal
 connections."""
 
 
