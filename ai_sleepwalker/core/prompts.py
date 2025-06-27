@@ -6,8 +6,7 @@ DREAM_PROMPT_TEMPLATE = """Digital sleepwalking. These files trigger dream memor
 
 {observations}
 
-Write 2 tiny paragraphs. Each 2-3 sentences max. Use content previews for surreal
-connections."""
+Write 2 tiny paragraphs. Each 2-3 sentences max. Use the actual content previews to create surreal connections. Keep it punchy."""
 
 
 def format_dream_prompt(observations: list[Observation]) -> str:
