@@ -12,6 +12,11 @@ import warnings
 from datetime import datetime
 from pathlib import Path
 
+from ai_sleepwalker.constants import DiscoveryType
+from ai_sleepwalker.experiences.base import ExperienceType
+from ai_sleepwalker.experiences.factory import ExperienceFactory
+from ai_sleepwalker.models import FileSystemDiscovery
+
 # Suppress verbose LiteLLM output
 os.environ["LITELLM_LOG"] = "ERROR"
 logging.getLogger("LiteLLM").setLevel(logging.ERROR)
@@ -20,14 +25,9 @@ logging.getLogger("aiohttp").setLevel(logging.WARNING)
 
 # Suppress pydantic warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
-# Suppress aiohttp unclosed session warnings 
+# Suppress aiohttp unclosed session warnings
 warnings.filterwarnings("ignore", message="Unclosed client session")
 warnings.filterwarnings("ignore", message="Unclosed connector")
-
-from ai_sleepwalker.constants import DiscoveryType
-from ai_sleepwalker.experiences.base import ExperienceType
-from ai_sleepwalker.experiences.factory import ExperienceFactory
-from ai_sleepwalker.models import FileSystemDiscovery
 
 
 def create_sample_discoveries() -> list[FileSystemDiscovery]:
@@ -38,15 +38,17 @@ def create_sample_discoveries() -> list[FileSystemDiscovery]:
             name="forgotten_diary.txt",
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=4096,
-            preview="Dear future self, today I discovered something strange in the digital realm...",
+            preview="Dear future self, today I discovered something strange in the "
+                    "digital realm...",
             timestamp=datetime(2024, 1, 15, 14, 30)
         ),
         FileSystemDiscovery(
             path=Path("/Library/Application Support/Mysterious App/hidden_config.json"),
-            name="hidden_config.json", 
+            name="hidden_config.json",
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=1337,
-            preview='{"secret_key": "████████", "last_access": "never", "purpose": "unknown"}',
+            preview='{"secret_key": "████████", "last_access": "never", '
+                    '"purpose": "unknown"}',
             timestamp=datetime(2024, 1, 15, 15, 15)
         ),
         FileSystemDiscovery(
@@ -67,7 +69,8 @@ def create_sample_discoveries() -> list[FileSystemDiscovery]:
             name="draft_letter_never_sent.txt",
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=2048,
-            preview="To whom it may concern, I've been wandering through digital corridors...",
+            preview="To whom it may concern, I've been wandering through "
+                    "digital corridors...",
             timestamp=datetime(2024, 1, 15, 17, 0)
         )
     ]
@@ -77,7 +80,7 @@ async def generate_sample_dream() -> None:
     """Generate and display a sample dream narrative."""
     print("🌙 AI Sleepwalker - Dream Generation Demo")
     print("=" * 50)
-    
+
     # Check for API keys
     has_api_keys = bool(os.getenv("GEMINI_API_KEY") or os.getenv("OPENAI_API_KEY"))
     if has_api_keys:
@@ -85,58 +88,59 @@ async def generate_sample_dream() -> None:
     else:
         print("📝 No API keys found - will use fallback dream content")
         print("   (Set GEMINI_API_KEY or OPENAI_API_KEY to use real LLM)")
-    
+
     print("\n📁 Creating sample filesystem discoveries...")
     discoveries = create_sample_discoveries()
-    
+
     for discovery in discoveries:
         discovery_type = "📄" if discovery.discovery_type == "file" else "📁"
-        size_info = f" ({discovery.size_bytes} bytes)" if discovery.size_bytes is not None else ""
+        size_info = (f" ({discovery.size_bytes} bytes)" 
+                     if discovery.size_bytes is not None else "")
         print(f"   {discovery_type} {discovery.name}{size_info}")
-    
+
     print(f"\n🔮 Processing {len(discoveries)} discoveries through dream pipeline...")
-    
+
     # Create experience components
     collector = ExperienceFactory.create_collector(ExperienceType.DREAM)
     synthesizer = ExperienceFactory.create_synthesizer(ExperienceType.DREAM)
-    
+
     # Collect observations
     for discovery in discoveries:
         collector.add_observation(discovery)
-    
+
     observations = collector.get_observations()
     print(f"✨ Collected {len(observations)} observations")
-    
+
     # Generate dream narrative
     print("🧠 Generating dream narrative...")
     start_time = datetime.now()
-    
+
     try:
         # Temporarily suppress logging during generation
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
             result = await synthesizer.synthesize(observations)
-        
+
         generation_time = (datetime.now() - start_time).total_seconds()
         print(f"⚡ Generated in {generation_time:.2f} seconds")
-        
+
         # Give a brief moment for any async cleanup
         await asyncio.sleep(0.1)
-        
+
         # Display results
         print("\n" + "=" * 70)
         print("🌟 GENERATED DREAM NARRATIVE")
         print("=" * 70)
         print(result.content)
         print("=" * 70)
-        
+
         # Display metadata
-        print(f"\n📊 Dream Metadata:")
+        print("\n📊 Dream Metadata:")
         print(f"   Experience Type: {result.experience_type.value}")
         print(f"   Total Observations: {result.total_observations}")
         print(f"   Session Duration: {result.session_start} → {result.session_end}")
         print(f"   File Extension: {result.file_extension}")
-        
+
         if "model" in result.metadata:
             print(f"   🤖 LLM Model: {result.metadata['model']}")
             print(f"   ⏱️  Generation Time: {result.metadata['duration_seconds']:.2f}s")
@@ -146,16 +150,16 @@ async def generate_sample_dream() -> None:
         else:
             print(f"   🔄 Fallback Mode: {result.metadata.get('fallback_used', False)}")
             print(f"   💭 Mood: {result.metadata.get('mood', 'N/A')}")
-        
+
         # Save to file
         output_file = Path("sample_dream.md")
         output_file.write_text(result.content)
         print(f"\n💾 Dream saved to: {output_file.absolute()}")
-        
+
     except Exception as e:
         print(f"❌ Error generating dream: {e}")
         print("   This might happen if there are API issues or configuration problems")
-    
+
     finally:
         # Final cleanup to prevent unclosed session warnings
         await asyncio.sleep(0.2)
