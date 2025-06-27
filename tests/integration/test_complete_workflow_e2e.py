@@ -36,21 +36,21 @@ async def test_complete_dream_workflow_with_real_llm() -> None:
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=2048,
             preview="Today I found something strange in the digital realm...",
-            timestamp=datetime(2024, 1, 15, 14, 30)
+            timestamp=datetime(2024, 1, 15, 14, 30),
         ),
         FileSystemDiscovery(
             path=Path("/tmp/mysterious_cache"),
             name="mysterious_cache",
             discovery_type=DiscoveryType.DIRECTORY.value,
-            timestamp=datetime(2024, 1, 15, 15, 15)
+            timestamp=datetime(2024, 1, 15, 15, 15),
         ),
         FileSystemDiscovery(
             path=Path("/var/log/forgotten.log"),
             name="forgotten.log",
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=0,
-            timestamp=datetime(2024, 1, 15, 16, 0)
-        )
+            timestamp=datetime(2024, 1, 15, 16, 0),
+        ),
     ]
 
     # Step 1: Create experience components through factory
@@ -137,21 +137,21 @@ async def test_complete_workflow_with_file_system_simulation() -> None:
                 discovery_type=DiscoveryType.FILE.value,
                 size_bytes=diary_file.stat().st_size,
                 preview=diary_file.read_text()[:50],
-                timestamp=datetime.now()
+                timestamp=datetime.now(),
             ),
             FileSystemDiscovery(
                 path=cache_dir,
                 name=cache_dir.name,
                 discovery_type=DiscoveryType.DIRECTORY.value,
-                timestamp=datetime.now()
+                timestamp=datetime.now(),
             ),
             FileSystemDiscovery(
                 path=log_file,
                 name=log_file.name,
                 discovery_type=DiscoveryType.FILE.value,
                 size_bytes=log_file.stat().st_size,
-                timestamp=datetime.now()
-            )
+                timestamp=datetime.now(),
+            ),
         ]
 
         # Process through complete workflow
@@ -192,7 +192,7 @@ async def test_complete_workflow_with_file_system_simulation() -> None:
 @pytest.mark.integration
 @pytest.mark.skipif(
     not os.getenv("GEMINI_API_KEY") and not os.getenv("OPENAI_API_KEY"),
-    reason="No LLM API keys available for full E2E test"
+    reason="No LLM API keys available for full E2E test",
 )
 async def test_complete_workflow_with_real_llm_api() -> None:
     """Test complete workflow with real LLM API calls.
@@ -208,7 +208,7 @@ async def test_complete_workflow_with_real_llm_api() -> None:
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=1337,
             preview='{"secret_key": "████████", "last_access": "never"}',
-            timestamp=datetime(2023, 12, 31, 23, 59)
+            timestamp=datetime(2023, 12, 31, 23, 59),
         ),
         FileSystemDiscovery(
             path=Path("/Users/someone/Desktop/draft_letter_never_sent.txt"),
@@ -216,14 +216,14 @@ async def test_complete_workflow_with_real_llm_api() -> None:
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=4096,
             preview="Dear future self, if you're reading this...",
-            timestamp=datetime(2024, 1, 1, 0, 0)
+            timestamp=datetime(2024, 1, 1, 0, 0),
         ),
         FileSystemDiscovery(
             path=Path("/tmp/encryption_keys_backup"),
             name="encryption_keys_backup",
             discovery_type=DiscoveryType.DIRECTORY.value,
-            timestamp=datetime(2024, 6, 15, 3, 33)
-        )
+            timestamp=datetime(2024, 6, 15, 3, 33),
+        ),
     ]
 
     # Process through complete workflow
@@ -255,8 +255,15 @@ async def test_complete_workflow_with_real_llm_api() -> None:
 
     # Should have dream-like, narrative qualities
     dream_indicators = [
-        "dream", "wandering", "discovered", "found", "strange",
-        "mysterious", "forgotten", "digital", "surreal"
+        "dream",
+        "wandering",
+        "discovered",
+        "found",
+        "strange",
+        "mysterious",
+        "forgotten",
+        "digital",
+        "surreal",
     ]
     assert any(indicator in content for indicator in dream_indicators)
 
@@ -279,14 +286,14 @@ async def test_workflow_error_resilience() -> None:
             name="file.txt",
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=None,  # Missing size
-            timestamp=datetime.now()
+            timestamp=datetime.now(),
         ),
         FileSystemDiscovery(
             path=Path(""),  # Empty path
             name="",  # Empty name
             discovery_type=DiscoveryType.DIRECTORY.value,
-            timestamp=datetime.now()
-        )
+            timestamp=datetime.now(),
+        ),
     ]
 
     collector = ExperienceFactory.create_collector(ExperienceType.DREAM)

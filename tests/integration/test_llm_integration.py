@@ -1,4 +1,5 @@
 """Integration tests for LLM functionality."""
+
 import os
 from datetime import datetime
 
@@ -14,10 +15,7 @@ class TestLLMIntegration:
     @pytest.fixture
     def integration_config(self) -> LLMConfig:
         """Provide configuration for integration tests."""
-        return LLMConfig(
-            model="gemini/gemini-2.5-flash-preview",
-            timeout=10
-        )
+        return LLMConfig(model="gemini/gemini-2.5-flash-preview", timeout=10)
 
     @pytest.fixture
     def test_observations(self) -> list[Observation]:
@@ -29,27 +27,27 @@ class TestLLMIntegration:
                 name="forgotten_diary.txt",
                 type="file",
                 size_bytes=4096,
-                preview="Dear diary, today something strange happened..."
+                preview="Dear diary, today something strange happened...",
             ),
             Observation(
                 timestamp=datetime(2024, 2, 10, 9, 15),
                 path="/tmp/mysterious_cache",
                 name="mysterious_cache",
-                type="directory"
+                type="directory",
             ),
             Observation(
                 timestamp=datetime(2023, 1, 1, 0, 0),
                 path="/var/log/ancient.log",
                 name="ancient.log",
                 type="file",
-                size_bytes=0
-            )
+                size_bytes=0,
+            ),
         ]
 
     @pytest.mark.integration
     @pytest.mark.skipif(
         not os.getenv("GEMINI_API_KEY") and not os.getenv("OPENAI_API_KEY"),
-        reason="No LLM API keys available"
+        reason="No LLM API keys available",
     )
     async def test_real_dream_generation(
         self, integration_config: LLMConfig, test_observations: list[Observation]
@@ -77,7 +75,7 @@ class TestLLMIntegration:
     @pytest.mark.integration
     @pytest.mark.skipif(
         not os.getenv("GEMINI_API_KEY") and not os.getenv("OPENAI_API_KEY"),
-        reason="No LLM API keys available"
+        reason="No LLM API keys available",
     )
     async def test_dream_generation_with_many_observations(
         self, integration_config: LLMConfig
@@ -92,7 +90,7 @@ class TestLLMIntegration:
                     path=f"/test/file_{i}.txt",
                     name=f"file_{i}.txt",
                     type="file" if i % 2 == 0 else "directory",
-                    size_bytes=i * 100 if i % 2 == 0 else None
+                    size_bytes=i * 100 if i % 2 == 0 else None,
                 )
             )
 
@@ -109,7 +107,7 @@ class TestLLMIntegration:
     @pytest.mark.integration
     @pytest.mark.skipif(
         not os.getenv("GEMINI_API_KEY") and not os.getenv("OPENAI_API_KEY"),
-        reason="No LLM API keys available"
+        reason="No LLM API keys available",
     )
     async def test_dream_generation_consistency(
         self, integration_config: LLMConfig, test_observations: list[Observation]
@@ -163,7 +161,7 @@ class TestLLMIntegration:
     @pytest.mark.integration
     @pytest.mark.skipif(
         not os.getenv("GEMINI_API_KEY") and not os.getenv("OPENAI_API_KEY"),
-        reason="No LLM API keys available"
+        reason="No LLM API keys available",
     )
     async def test_dream_experience_integration(
         self, test_observations: list[Observation]

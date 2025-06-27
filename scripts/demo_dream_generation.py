@@ -39,8 +39,8 @@ def create_sample_discoveries() -> list[FileSystemDiscovery]:
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=4096,
             preview="Dear future self, today I discovered something strange in the "
-                    "digital realm...",
-            timestamp=datetime(2024, 1, 15, 14, 30)
+            "digital realm...",
+            timestamp=datetime(2024, 1, 15, 14, 30),
         ),
         FileSystemDiscovery(
             path=Path("/Library/Application Support/Mysterious App/hidden_config.json"),
@@ -48,21 +48,21 @@ def create_sample_discoveries() -> list[FileSystemDiscovery]:
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=1337,
             preview='{"secret_key": "████████", "last_access": "never", '
-                    '"purpose": "unknown"}',
-            timestamp=datetime(2024, 1, 15, 15, 15)
+            '"purpose": "unknown"}',
+            timestamp=datetime(2024, 1, 15, 15, 15),
         ),
         FileSystemDiscovery(
             path=Path("/tmp/encryption_keys_backup"),
             name="encryption_keys_backup",
             discovery_type=DiscoveryType.DIRECTORY.value,
-            timestamp=datetime(2024, 1, 15, 16, 0)
+            timestamp=datetime(2024, 1, 15, 16, 0),
         ),
         FileSystemDiscovery(
             path=Path("/var/log/system_whispers.log"),
             name="system_whispers.log",
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=0,
-            timestamp=datetime(2024, 1, 15, 16, 30)
+            timestamp=datetime(2024, 1, 15, 16, 30),
         ),
         FileSystemDiscovery(
             path=Path("/Users/alex/Desktop/draft_letter_never_sent.txt"),
@@ -70,9 +70,9 @@ def create_sample_discoveries() -> list[FileSystemDiscovery]:
             discovery_type=DiscoveryType.FILE.value,
             size_bytes=2048,
             preview="To whom it may concern, I've been wandering through "
-                    "digital corridors...",
-            timestamp=datetime(2024, 1, 15, 17, 0)
-        )
+            "digital corridors...",
+            timestamp=datetime(2024, 1, 15, 17, 0),
+        ),
     ]
 
 
@@ -94,8 +94,11 @@ async def generate_sample_dream() -> None:
 
     for discovery in discoveries:
         discovery_type = "📄" if discovery.discovery_type == "file" else "📁"
-        size_info = (f" ({discovery.size_bytes} bytes)"
-                     if discovery.size_bytes is not None else "")
+        size_info = (
+            f" ({discovery.size_bytes} bytes)"
+            if discovery.size_bytes is not None
+            else ""
+        )
         print(f"   {discovery_type} {discovery.name}{size_info}")
 
     print(f"\n🔮 Processing {len(discoveries)} discoveries through dream pipeline...")

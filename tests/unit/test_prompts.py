@@ -1,4 +1,5 @@
 """Tests for LLM prompt management."""
+
 from datetime import datetime
 
 import pytest
@@ -19,14 +20,14 @@ class TestDreamPromptFormatting:
                 path="/home/user/old_photo.jpg",
                 name="old_photo.jpg",
                 type="file",
-                size_bytes=2048
+                size_bytes=2048,
             ),
             Observation(
                 timestamp=datetime(2024, 1, 16, 9, 15),
                 path="/tmp/cache",
                 name="cache",
-                type="directory"
-            )
+                type="directory",
+            ),
         ]
 
     @pytest.fixture
@@ -39,21 +40,21 @@ class TestDreamPromptFormatting:
                 name="draft_novel.txt",
                 type="file",
                 size_bytes=50432,
-                preview="Chapter 1: It was a dark and stormy night..."
+                preview="Chapter 1: It was a dark and stormy night...",
             ),
             Observation(
                 timestamp=datetime(2024, 11, 5, 8, 20),
                 path="/System/Library/mysterious_folder",
                 name="mysterious_folder",
-                type="directory"
+                type="directory",
             ),
             Observation(
                 timestamp=datetime(2023, 1, 1, 0, 0),
                 path="/var/log/forgotten.log",
                 name="forgotten.log",
                 type="file",
-                size_bytes=0
-            )
+                size_bytes=0,
+            ),
         ]
 
     def test_prompt_template_exists(self) -> None:
@@ -134,7 +135,7 @@ class TestDreamPromptFormatting:
                 timestamp=datetime(2024, 1, 1, 12, 0),
                 path="/test/file.txt",
                 name="file.txt",
-                type="file"
+                type="file",
             )
         ]
 
@@ -152,8 +153,8 @@ class TestDreamPromptFormatting:
         assert "Recent discoveries" in prompt
 
         # Should have observations section
-        lines = prompt.split('\n')
-        observation_lines = [line for line in lines if line.startswith('- ')]
+        lines = prompt.split("\n")
+        observation_lines = [line for line in lines if line.startswith("- ")]
         assert len(observation_lines) == len(simple_observations)
 
     def test_observation_capitalization_in_prompt(
