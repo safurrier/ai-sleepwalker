@@ -1,4 +1,4 @@
-.PHONY: compile-deps setup clean-pyc clean-test clean-venv clean test mypy lint format check reload demo clean-example docs-install docs-build docs-serve docs-check docs-clean dev-env refresh-containers rebuild-images build-image push-image
+.PHONY: compile-deps setup clean-pyc clean-test clean-venv clean test mypy lint format check reload demo keep-awake sleepwalk sleepwalk-here sleepwalk-script clean-example docs-install docs-build docs-serve docs-check docs-clean dev-env refresh-containers rebuild-images build-image push-image
 
 # Module name - will be updated by init script
 MODULE_NAME := ai_sleepwalker
@@ -81,6 +81,44 @@ demo: setup  # Run dream generation demo
 		echo ""; \
 	fi
 	uv run python scripts/demo_dream_generation.py
+
+keep-awake: setup  # Keep computer awake with continuous sleepwalking
+	@echo "🚀 Starting AI Sleepwalker in keep-awake mode..."
+	@echo "   This will run indefinitely to prevent sleep"
+	@echo "   Press Ctrl+C to stop"
+	@echo ""
+	@if [ -z "$$GEMINI_API_KEY" ] && [ -z "$$OPENAI_API_KEY" ]; then \
+		echo "⚠️  Warning: No API keys found. Will use fallback dreams."; \
+		echo "   Set GEMINI_API_KEY or OPENAI_API_KEY for AI-generated dreams."; \
+		echo ""; \
+	fi
+	uv run python scripts/keep_awake.py
+
+sleepwalk: setup  # Run the AI sleepwalker (main command)
+	@echo "🌙 Starting AI Sleepwalker - Digital Dream Explorer"
+	@echo ""
+	@if [ -z "$$GEMINI_API_KEY" ] && [ -z "$$OPENAI_API_KEY" ]; then \
+		echo "⚠️  Warning: No API keys found. Will use fallback dreams."; \
+		echo "   Set GEMINI_API_KEY or OPENAI_API_KEY for AI-generated dreams."; \
+		echo ""; \
+	fi
+	@if [ -n "$(DIR)" ]; then \
+		uv run -m ai_sleepwalker --dirs "$(DIR)"; \
+	else \
+		uv run -m ai_sleepwalker; \
+	fi
+
+sleepwalk-here: setup  # Sleepwalk in current directory without confirmation  
+	@echo "🌙 Sleepwalking in current directory..."
+	uv run -m ai_sleepwalker --dirs . --no-confirm
+
+sleepwalk-script: setup  # Use the original standalone script (legacy)
+	@echo "🔍 Starting legacy sleepwalk script"
+	@if [ -n "$(DIR)" ]; then \
+		uv run python scripts/sleepwalk_real.py "$(DIR)"; \
+	else \
+		uv run python scripts/sleepwalk_real.py; \
+	fi
 
 # Documentation
 ###############

@@ -23,3 +23,5 @@ site/
 
 # Generated demo output
 sample_dream.md
+sleepwalk_dreams/
+.implementation-notes.md
