@@ -26,7 +26,7 @@ logger = logging.getLogger(__name__)
 shutdown_requested = False
 
 
-def signal_handler(signum, frame):
+def signal_handler(signum: int, frame: object) -> None:
     """Handle shutdown signals gracefully."""
     global shutdown_requested
     logger.info("\n🛑 Shutdown requested. Finishing current dream...")
@@ -292,14 +292,14 @@ async def start_sleepwalking(
 
     logger.info(f"\n📁 Exploring: {', '.join(str(p) for p in search_paths)}")
     logger.info(f"💾 Dreams saved to: {output_dir}")
-    logger.info("🔒 System wake lock activated - preventing sleep and screen lock")
+    logger.info("🔒 Display wake lock activated - preventing sleep and screen lock")
     logger.info("⏰ Will explore and dream continuously")
     logger.info("   Press Ctrl+C to stop\n")
 
     cycle = 1
 
     # Use wakepy to prevent sleep and screen lock
-    with wakepy.keep.running():
+    with wakepy.keep.presenting():
         while not shutdown_requested:
             try:
                 # Run sleepwalk cycle
@@ -332,6 +332,6 @@ async def start_sleepwalking(
                 logger.info("🔄 Restarting in 30 seconds...")
                 await asyncio.sleep(30)
 
-    logger.info("\n🔓 System wake lock released")
+    logger.info("\n🔓 Display wake lock released")
     logger.info("👋 Sleepwalker shutting down gracefully")
     logger.info(f"📊 Generated {cycle - 1} dreams this session")
