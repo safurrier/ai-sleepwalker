@@ -16,6 +16,10 @@ dependencies = [
     "tenacity>=8.0.0",           # Retry logic for API calls
 ]
 
+[project.scripts]
+sleepwalker = "ai_sleepwalker.cli:sleepwalk"
+ai-sleepwalker = "ai_sleepwalker.cli:sleepwalk"
+
 [project.optional-dependencies]
 dev = [
     "mypy>=1.9.0",

@@ -5,7 +5,7 @@ A digital consciousness that explores your filesystem during idle time, generati
 ## 🎯 What It Does
 
 The AI Sleepwalker monitors your computer for inactivity and then:
-1. **Prevents sleep** to keep exploring while you're away
+1. **Prevents sleep and screen lock** to keep exploring while you're away
 2. **Safely wanders** through your specified directories 
 3. **Observes files and folders** with curiosity and respect
 4. **Generates poetic dreams** about its discoveries using AI
