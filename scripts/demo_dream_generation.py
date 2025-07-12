@@ -12,6 +12,11 @@ import warnings
 from datetime import datetime
 from pathlib import Path
 
+from ai_sleepwalker.constants import DiscoveryType
+from ai_sleepwalker.experiences.base import ExperienceType
+from ai_sleepwalker.experiences.factory import ExperienceFactory
+from ai_sleepwalker.models import FileSystemDiscovery
+
 # Suppress verbose LiteLLM output
 os.environ["LITELLM_LOG"] = "ERROR"
 logging.getLogger("LiteLLM").setLevel(logging.ERROR)
@@ -20,14 +25,9 @@ logging.getLogger("aiohttp").setLevel(logging.WARNING)
 
 # Suppress pydantic warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="pydantic")
-# Suppress aiohttp unclosed session warnings 
+# Suppress aiohttp unclosed session warnings
 warnings.filterwarnings("ignore", message="Unclosed client session")
 warnings.filterwarnings("ignore", message="Unclosed connector")
-
-from ai_sleepwalker.constants import DiscoveryType
-from ai_sleepwalker.experiences.base import ExperienceType
-from ai_sleepwalker.experiences.factory import ExperienceFactory
-from ai_sleepwalker.models import FileSystemDiscovery
 
 
 def create_sample_discoveries() -> list[FileSystemDiscovery]:
@@ -161,7 +161,7 @@ async def generate_sample_dream() -> None:
     except Exception as e:
         print(f"❌ Error generating dream: {e}")
         print("   This might happen if there are API issues or configuration problems")
-    
+
     finally:
         # Final cleanup to prevent unclosed session warnings
         await asyncio.sleep(0.2)

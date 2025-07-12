@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]  # Only macOS for now due to pynput dependency
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.11"]  # Single Python version to simplify CI
 
     steps:
     - uses: actions/checkout@v4
