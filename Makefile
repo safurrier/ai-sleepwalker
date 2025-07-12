@@ -1,4 +1,4 @@
-.PHONY: compile-deps setup clean-pyc clean-test clean-venv clean test mypy lint format check reload demo keep-awake sleepwalk sleepwalk-here sleepwalk-script clean-example docs-install docs-build docs-serve docs-check docs-clean dev-env refresh-containers rebuild-images build-image push-image
+.PHONY: compile-deps setup clean-pyc clean-test clean-venv clean test mypy lint format check reload demo keep-awake sleepwalk sleepwalk-here clean-example docs-install docs-build docs-serve docs-check docs-clean dev-env refresh-containers rebuild-images build-image push-image
 
 # Module name - will be updated by init script
 MODULE_NAME := ai_sleepwalker
@@ -14,7 +14,7 @@ PYTHON_VERSION ?= 3.12
 ensure-uv:  # Install uv if not present
 	@which uv > /dev/null || (curl -LsSf https://astral.sh/uv/install.sh | sh)
 
-setup: ensure-uv compile-deps ensure-scripts  # Install dependencies
+setup: ensure-uv compile-deps  # Install dependencies
 	UV_PYTHON_VERSION=$(PYTHON_VERSION) uv venv
 	UV_PYTHON_VERSION=$(PYTHON_VERSION) uv pip sync requirements.txt requirements-dev.txt
 	$(MAKE) install-hooks
@@ -25,9 +25,7 @@ install-hooks:  # Install pre-commit hooks if in a git repo with hooks configure
 		uv run pre-commit install; \
 	fi
 
-ensure-scripts:  # Ensure scripts directory exists and files are executable
-	mkdir -p scripts
-	chmod +x scripts/*.py
+# Removed ensure-scripts - using main CLI instead of separate scripts
 
 # Cleaning
 #########
@@ -67,9 +65,9 @@ reload:  # Reload the package to pick up source changes
 	uv pip install -e .
 	@echo "✅ Package reloaded"
 
-demo: setup  # Run dream generation demo
-	@echo "🌙 Starting AI Sleepwalker Dream Generation Demo"
-	@echo "================================================"
+demo: setup  # Run quick demo in /tmp directory
+	@echo "🌙 Starting AI Sleepwalker Demo"
+	@echo "================================"
 	@if [ -z "$$GEMINI_API_KEY" ] && [ -z "$$OPENAI_API_KEY" ]; then \
 		echo "⚠️  No API keys found - demo will use fallback content"; \
 		echo "   To use real LLM, set one of:"; \
@@ -80,7 +78,8 @@ demo: setup  # Run dream generation demo
 		echo "🔑 API keys detected - will use real LLM for generation"; \
 		echo ""; \
 	fi
-	uv run python scripts/demo_dream_generation.py
+	@echo "Running brief demo in /tmp directory..."
+	timeout 30 uv run -m ai_sleepwalker --dirs /tmp --no-confirm || echo "✅ Demo completed"
 
 keep-awake: setup  # Keep computer awake with continuous sleepwalking
 	@echo "🚀 Starting AI Sleepwalker in keep-awake mode..."
@@ -92,7 +91,7 @@ keep-awake: setup  # Keep computer awake with continuous sleepwalking
 		echo "   Set GEMINI_API_KEY or OPENAI_API_KEY for AI-generated dreams."; \
 		echo ""; \
 	fi
-	uv run python scripts/keep_awake.py
+	uv run -m ai_sleepwalker --dirs /tmp --no-confirm
 
 sleepwalk: setup  # Run the AI sleepwalker (main command)
 	@echo "🌙 Starting AI Sleepwalker - Digital Dream Explorer"
@@ -112,13 +111,7 @@ sleepwalk-here: setup  # Sleepwalk in current directory without confirmation
 	@echo "🌙 Sleepwalking in current directory..."
 	uv run -m ai_sleepwalker --dirs . --no-confirm
 
-sleepwalk-script: setup  # Use the original standalone script (legacy)
-	@echo "🔍 Starting legacy sleepwalk script"
-	@if [ -n "$(DIR)" ]; then \
-		uv run python scripts/sleepwalk_real.py "$(DIR)"; \
-	else \
-		uv run python scripts/sleepwalk_real.py; \
-	fi
+# sleepwalk-script target removed - use 'make sleepwalk' instead
 
 # Documentation
 ###############
@@ -175,8 +168,7 @@ clean-example:  # Remove example code (use this to start your own project)
 	rm -rf $(MODULE_NAME)/example.py tests/test_example.py
 	touch $(MODULE_NAME)/__init__.py tests/__init__.py
 
-init: setup  # Initialize a new project
-	uv run python scripts/init_project.py
+# init target removed - project is already initialized
 
 # Docker
 ########
