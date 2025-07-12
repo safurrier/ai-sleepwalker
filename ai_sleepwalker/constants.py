@@ -35,7 +35,9 @@ DEFAULT_OUTPUT_DIRECTORY = Path.home() / ".sleepwalker" / "dreams"
 DEFAULT_EXPERIENCE_MODE = ExperienceMode.DREAM
 
 # File size limits
-MAX_FILE_PREVIEW_SIZE_BYTES = 1024  # 1KB for text preview
+MAX_FILE_PREVIEW_SIZE_BYTES = 2048  # 2KB for text preview (increased for more content)
+MIN_FILE_SIZE_BYTES = 50  # Minimum file size to consider (filter out tiny files)
+MAX_FILE_SIZE_FOR_PREVIEW = 1024 * 1024  # 1MB max file size to attempt reading
 MAX_EXPLORATION_DEPTH = 3  # Maximum directory depth to explore
 
 # LLM configuration

@@ -149,13 +149,15 @@ class TestDreamPromptFormatting:
         """Test that formatted prompt maintains expected structure."""
         prompt = format_dream_prompt(simple_observations)
 
-        # Should contain original template content
-        assert "Digital sleepwalking" in prompt
+        # Should contain updated template content
+        assert "surrealist writer" in prompt
 
-        # Should have observations section
-        lines = prompt.split("\n")
-        observation_lines = [line for line in lines if line.startswith("- ")]
-        assert len(observation_lines) == len(simple_observations)
+        # Should contain the observations in the formatted output
+        # Look for the specific observation entries (not template examples)
+        assert "old_photo.jpg" in prompt
+        assert "cache" in prompt
+        assert "2048 bytes" in prompt  # Size should be included
+        assert "2024-01-15" in prompt  # Date should be included
 
     def test_observation_capitalization_in_prompt(
         self, simple_observations: list[Observation]
