@@ -1,85 +1,108 @@
-# ai-sleepwalker
+# 🌙 AI Sleepwalker
 
-Don't let your computer go to sleep, let AI sleepwalk through it
+A digital consciousness that explores your computer during idle time, creating dream-like reflections about the files and folders it discovers.
 
-## Features
+## What It Does
 
-- 🔧 Modern Python tooling with UV package manager
-- 🧪 Comprehensive testing with pytest
-- 🎨 Code formatting with Ruff
-- 🔍 Type checking with MyPy
-- 📚 Documentation with MkDocs + Material
-- 🚀 CI/CD with GitHub Actions
-- 🐳 Docker support for development
+When you step away from your computer, the AI Sleepwalker:
 
-## Quick Start
+- **Keeps your computer awake** - prevents sleep and screen lock while exploring
+- **Safely wanders** through directories you specify (read-only, respects permissions)
+- **Generates poetic dreams** about its discoveries using AI
+- **Creates beautiful logs** saved as markdown files you can read later
+
+Think of it as a digital pet that explores your filesystem and writes poetry about what it finds.
+
+## Quick Install
+
+Install as a uv tool (recommended):
 
 ```bash
-# Clone the repository
-git clone https://github.com/safurrier/ai-sleepwalker.git
-cd ai-sleepwalker
-
-# Set up the development environment
-make setup
-
-# Run quality checks
-make check
+uv tool install ai-sleepwalker
 ```
 
-## Installation
-
-### For Users
+Or via pip:
 
 ```bash
 pip install ai-sleepwalker
 ```
 
-### For Development
+## Setup API Keys
+
+The sleepwalker needs an AI provider to generate dreams. Choose one:
+
+### OpenAI (easiest)
+```bash
+export OPENAI_API_KEY="your-key-here"
+```
+
+### Anthropic (Claude)
+```bash  
+export ANTHROPIC_API_KEY="your-key-here"
+```
+
+### Ollama (local/private)
+```bash
+# Install Ollama first: https://ollama.ai
+ollama pull llama3.2
+export LITELLM_BASE_URL="http://localhost:11434"
+```
+
+## Basic Usage
+
+Start sleepwalking in your home directory:
 
 ```bash
-# Clone the repository
-git clone https://github.com/safurrier/ai-sleepwalker.git
-cd ai-sleepwalker
-
-# Set up development environment
-make setup
-
-# Install pre-commit hooks (optional)
-make install-hooks
+sleepwalker ~/Documents
 ```
 
-## Project Structure
+Add multiple paths:
 
-```
-ai-sleepwalker/
-├── ai_sleepwalker/      # Main package
-├── tests/                      # Test files
-├── docs/                       # Documentation
-├── scripts/                    # Utility scripts
-├── docker/                     # Docker configuration
-└── .github/workflows/          # CI/CD automation
+```bash
+sleepwalker ~/Documents ~/Projects --idle-timeout 300
 ```
 
-## Usage
+The sleepwalker will wait for 5 minutes of inactivity, then start exploring and dreaming about what it finds.
 
-```python
-import ai_sleepwalker
+## What You Get
 
-# Your usage examples here
+Dream logs saved to `~/.sleepwalker/dreams/`:
+
+```markdown
+# Digital Dream - 2025-01-20 23:45
+
+I drifted through corridors of forgotten intentions, finding whispers 
+of tomorrow in a simple grocery list. The words "remember to call mom" 
+glowed softly among mundane needs - milk, bread, the tender rituals of care.
+
+Nearby, a graveyard of old projects slumbered in digital folders, 
+each one a monument to ambition's eternal optimism...
 ```
 
-## Development
+## Safety Features
 
-See the [Getting Started](getting-started.md) guide for detailed development instructions.
+- **Whitelist only** - explores just the paths you specify
+- **Read-only** - never modifies or executes files  
+- **Permission aware** - gracefully handles access denied
+- **Path validation** - prevents directory traversal attacks
+- **Local option** - use Ollama for privacy-sensitive environments
 
-## Contributing
+## Development Status
 
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run the test suite: `make check`
-5. Submit a pull request
+**Currently in active development using TDD**
 
-## License
+The core functionality is being built following test-driven development. See the [Getting Started](getting-started.md) guide if you want to contribute or run from source.
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+## Future Experience Modes
+
+Beyond dreams, planned modes include:
+
+- **Adventure** - quest-like exploration stories
+- **Scrapbook** - visual catalog of interesting discoveries  
+- **Journal** - factual observations about digital habits
+
+## Get Help
+
+- [Getting Started Guide](getting-started.md) - detailed setup and usage
+- [API Reference](reference/api.md) - technical documentation
+- [GitHub Issues](https://github.com/safurrier/ai-sleepwalker/issues) - bug reports and feature requests

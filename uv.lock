@@ -31,6 +31,10 @@ dev = [
 
 [package.dev-dependencies]
 dev = [
+    { name = "mkdocs" },
+    { name = "mkdocs-material" },
+    { name = "mkdocstrings", extra = ["python"] },
+    { name = "pre-commit" },
     { name = "types-pynput" },
 ]
 
@@ -56,7 +60,13 @@ requires-dist = [
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "types-pynput", specifier = ">=1.8.1.20250318" }]
+dev = [
+    { name = "mkdocs", specifier = ">=1.6.1" },
+    { name = "mkdocs-material", specifier = ">=9.6.14" },
+    { name = "mkdocstrings", extras = ["python"], specifier = ">=0.29.1" },
+    { name = "pre-commit", specifier = ">=4.2.0" },
+    { name = "types-pynput", specifier = ">=1.8.1.20250318" },
+]
 
 [[package]]
 name = "aiohappyeyeballs"

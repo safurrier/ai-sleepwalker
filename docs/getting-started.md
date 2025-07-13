@@ -1,100 +1,142 @@
 # Getting Started
 
-This guide will help you get started with ai-sleepwalker.
+## Quick Install (Recommended)
 
-## Prerequisites
+Install AI Sleepwalker as a uv tool - this keeps it isolated and available everywhere:
 
-- Python 3.9 or higher
-- Git
+```bash
+uv tool install ai-sleepwalker
+```
 
-## Installation
+Or use pip if you prefer:
 
-### End Users
-
-Install from PyPI:
 ```bash
 pip install ai-sleepwalker
 ```
 
-### Developers
+## Set Up API Keys
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/safurrier/ai-sleepwalker.git
-   cd ai-sleepwalker
-   ```
+Choose an AI provider to generate dreams:
 
-2. Set up the development environment:
-   ```bash
-   make setup
-   ```
+### OpenAI (Most Popular)
 
-3. Run the tests to verify everything works:
-   ```bash
-   make test
-   ```
+1. Get an API key from [OpenAI](https://platform.openai.com/api-keys)
+2. Add to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.):
 
-## Basic Usage
-
-```python
-import ai_sleepwalker
-
-# Add your basic usage examples here
+```bash
+export OPENAI_API_KEY="sk-your-actual-key-here"
 ```
 
-## Development Workflow
+3. Reload your shell: `source ~/.zshrc`
 
-1. Make your changes to the code
-2. Add or update tests as needed
-3. Run quality checks:
-   ```bash
-   make check
-   ```
-4. Update documentation if needed
-5. Commit your changes
-6. Create a pull request
+### Anthropic (Claude)
 
-## Available Commands
+1. Get an API key from [Anthropic Console](https://console.anthropic.com/)
+2. Set the environment variable:
 
-Run `make` to see all available commands:
-
-- `make setup` - Set up development environment
-- `make test` - Run tests with coverage
-- `make lint` - Run linting
-- `make format` - Format code
-- `make mypy` - Run type checking
-- `make check` - Run all quality checks
-- `make docs-serve` - Serve documentation locally
-- `make docs-build` - Build documentation
-
-## Testing
-
-Run the test suite:
 ```bash
+export ANTHROPIC_API_KEY="sk-ant-your-key-here"
+```
+
+### Ollama (Local/Private)
+
+For privacy or offline use:
+
+1. Install [Ollama](https://ollama.ai)
+2. Pull a model: `ollama pull llama3.2`
+3. Set the base URL: `export LITELLM_BASE_URL="http://localhost:11434"`
+
+## First Run
+
+Start sleepwalking in a safe directory:
+
+```bash
+sleepwalker ~/Documents
+```
+
+The sleepwalker will:
+1. Wait for 5 minutes of inactivity (configurable)
+2. Prevent your computer from sleeping
+3. Explore the directory you specified
+4. Generate dreams about what it finds
+5. Save them to `~/.sleepwalker/dreams/`
+
+## Common Options
+
+```bash
+# Custom idle timeout (seconds)
+sleepwalker ~/Documents --idle-timeout 600
+
+# Multiple directories
+sleepwalker ~/Documents ~/Projects ~/Photos
+
+# Specify AI model
+sleepwalker ~/Documents --model gpt-4o-mini
+
+# Dry run (no AI calls)
+sleepwalker ~/Documents --dry-run
+```
+
+## Troubleshooting
+
+### "No API key found"
+Make sure you've set the environment variable and reloaded your shell.
+
+### "Permission denied" errors
+The sleepwalker can only read files you have access to. This is normal for system directories.
+
+### Dreams aren't saving
+Check that `~/.sleepwalker/dreams/` exists and is writable. The sleepwalker should create it automatically.
+
+### Computer still goes to sleep
+Some systems require additional permissions for sleep prevention. The sleepwalker will log warnings if it can't prevent sleep.
+
+## Development Setup
+
+Want to contribute or run from source?
+
+### Prerequisites
+- Python 3.10+
+- [uv](https://github.com/astral-sh/uv) for dependency management
+
+### Setup
+
+```bash
+# Clone and setup
+git clone https://github.com/safurrier/ai-sleepwalker.git
+cd ai-sleepwalker
+make setup
+
+# Run tests
 make test
+
+# Start development server
+uv run python -m ai_sleepwalker.cli ~/Documents
 ```
 
-Run specific tests:
-```bash
-uv run -m pytest tests/test_specific.py::test_function_name
-```
+### Available Commands
 
-## Documentation
+- `make setup` - Install dependencies
+- `make test` - Run test suite  
+- `make check` - Run all quality checks
+- `make format` - Format code
+- `make lint` - Lint code
+- `make mypy` - Type check
+- `make docs-serve` - Serve docs locally
 
-### Viewing Documentation
+### TDD Workflow
 
-Serve documentation locally:
-```bash
-make docs-serve
-```
+This project uses test-driven development:
 
-The documentation will be available at http://localhost:8000
+1. Write failing tests first
+2. Implement minimal code to pass
+3. Refactor while keeping tests green
 
-### Building Documentation
+See existing tests in `tests/` for patterns and examples.
 
-Build static documentation:
-```bash
-make docs-build
-```
+## What's Next?
 
-The built documentation will be in the `site/` directory.
+- Read the [API Reference](reference/api.md) for advanced usage
+- Check [GitHub Issues](https://github.com/safurrier/ai-sleepwalker/issues) for known issues
+- Join discussions about new experience modes
+- Contribute to the project!
