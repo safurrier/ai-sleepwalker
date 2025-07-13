@@ -5,29 +5,40 @@
 Install AI Sleepwalker as a uv tool - this keeps it isolated and available everywhere:
 
 ```bash
-uv tool install ai-sleepwalker
+uv tool install git+https://github.com/safurrier/ai-sleepwalker.git
 ```
 
-Or use pip if you prefer:
+Or clone and install locally:
 
 ```bash
-pip install ai-sleepwalker
+git clone https://github.com/safurrier/ai-sleepwalker.git
+cd ai-sleepwalker
+uv tool install .
 ```
 
 ## Set Up API Keys
 
 Choose an AI provider to generate dreams:
 
-### OpenAI (Most Popular)
+### Google Gemini (Recommended - Free Tier)
+
+1. Get a free API key from [Google AI Studio](https://aistudio.google.com/)
+2. Add to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.):
+
+```bash
+export GEMINI_API_KEY="your-actual-key-here"
+```
+
+3. Reload your shell: `source ~/.zshrc`
+
+### OpenAI
 
 1. Get an API key from [OpenAI](https://platform.openai.com/api-keys)
-2. Add to your shell profile (`~/.bashrc`, `~/.zshrc`, etc.):
+2. Set the environment variable:
 
 ```bash
 export OPENAI_API_KEY="sk-your-actual-key-here"
 ```
-
-3. Reload your shell: `source ~/.zshrc`
 
 ### Anthropic (Claude)
 
@@ -40,11 +51,11 @@ export ANTHROPIC_API_KEY="sk-ant-your-key-here"
 
 ### Ollama (Local/Private)
 
-For privacy or offline use:
+For completely private, offline use:
 
 1. Install [Ollama](https://ollama.ai)
 2. Pull a model: `ollama pull llama3.2`
-3. Set the base URL: `export LITELLM_BASE_URL="http://localhost:11434"`
+3. Use the model directly: `sleepwalker ~/Documents --model ollama/llama3.2`
 
 ## First Run
 
@@ -91,52 +102,12 @@ Check that `~/.sleepwalker/dreams/` exists and is writable. The sleepwalker shou
 ### Computer still goes to sleep
 Some systems require additional permissions for sleep prevention. The sleepwalker will log warnings if it can't prevent sleep.
 
-## Development Setup
-
-Want to contribute or run from source?
-
-### Prerequisites
-- Python 3.10+
-- [uv](https://github.com/astral-sh/uv) for dependency management
-
-### Setup
-
-```bash
-# Clone and setup
-git clone https://github.com/safurrier/ai-sleepwalker.git
-cd ai-sleepwalker
-make setup
-
-# Run tests
-make test
-
-# Start development server
-uv run python -m ai_sleepwalker.cli ~/Documents
-```
-
-### Available Commands
-
-- `make setup` - Install dependencies
-- `make test` - Run test suite  
-- `make check` - Run all quality checks
-- `make format` - Format code
-- `make lint` - Lint code
-- `make mypy` - Type check
-- `make docs-serve` - Serve docs locally
-
-### TDD Workflow
-
-This project uses test-driven development:
-
-1. Write failing tests first
-2. Implement minimal code to pass
-3. Refactor while keeping tests green
-
-See existing tests in `tests/` for patterns and examples.
-
 ## What's Next?
 
 - Read the [API Reference](reference/api.md) for advanced usage
 - Check [GitHub Issues](https://github.com/safurrier/ai-sleepwalker/issues) for known issues
 - Join discussions about new experience modes
-- Contribute to the project!
+
+## Development Setup
+
+Want to contribute? See the [Developer Guide](developer-guide.md) for setup instructions and contribution guidelines.

@@ -18,20 +18,29 @@ Think of it as a digital pet that explores your filesystem and writes poetry abo
 Install as a uv tool (recommended):
 
 ```bash
-uv tool install ai-sleepwalker
+uv tool install git+https://github.com/safurrier/ai-sleepwalker.git
 ```
 
-Or via pip:
+Or clone and install:
 
 ```bash
-pip install ai-sleepwalker
+git clone https://github.com/safurrier/ai-sleepwalker.git
+cd ai-sleepwalker
+uv tool install .
 ```
 
 ## Setup API Keys
 
 The sleepwalker needs an AI provider to generate dreams. Choose one:
 
-### OpenAI (easiest)
+### Google Gemini (recommended - free tier)
+Get a free API key from [Google AI Studio](https://aistudio.google.com/):
+
+```bash
+export GEMINI_API_KEY="your-key-here"
+```
+
+### OpenAI 
 ```bash
 export OPENAI_API_KEY="your-key-here"
 ```
@@ -42,10 +51,14 @@ export ANTHROPIC_API_KEY="your-key-here"
 ```
 
 ### Ollama (local/private)
+For completely private, offline usage:
+
 ```bash
 # Install Ollama first: https://ollama.ai
 ollama pull llama3.2
-export LITELLM_BASE_URL="http://localhost:11434"
+
+# Use the ollama model directly
+sleepwalker ~/Documents --model ollama/llama3.2
 ```
 
 ## Basic Usage
@@ -69,14 +82,16 @@ The sleepwalker will wait for 5 minutes of inactivity, then start exploring and 
 Dream logs saved to `~/.sleepwalker/dreams/`:
 
 ```markdown
-# Digital Dream - 2025-01-20 23:45
+# Dream #6670
+Generated: 2025-07-12 20:37:08
+Explored: /private/tmp
+Discoveries: 9
 
-I drifted through corridors of forgotten intentions, finding whispers 
-of tomorrow in a simple grocery list. The words "remember to call mom" 
-glowed softly among mundane needs - milk, bread, the tender rituals of care.
+---
 
-Nearby, a graveyard of old projects slumbered in digital folders, 
-each one a monument to ambition's eternal optimism...
+In the digital ether, the echoes of events converge like dreams folding into one another. A seemingly innocuous log file, boasting a timestamped initiation of processes, whispers of an unreal world where algorithms ponder their own existence as they launch into the void. Meanwhile, the shadowless directories, like lost memories, shelter the secrets of power and command, hinting at the dance of invisible forces shaping our consciousness.
+
+Amidst the techno-dreamscape lies a labyrinth of tests, each a thread in the tapestry of creation. Scripts for end-to-end journeys reveal a workflow that traverses the boundary between awakening and slumber, interrogating the nature of reality itself. The demo script, a beacon of possibility, beckons us to explore what dreams may come when we untangle the wires connecting our minds to the vast, unseen cosmos.
 ```
 
 ## Safety Features
@@ -87,11 +102,11 @@ each one a monument to ambition's eternal optimism...
 - **Path validation** - prevents directory traversal attacks
 - **Local option** - use Ollama for privacy-sensitive environments
 
-## Development Status
+## Project Status
 
-**Currently in active development using TDD**
+**Currently in active development**
 
-The core functionality is being built following test-driven development. See the [Getting Started](getting-started.md) guide if you want to contribute or run from source.
+The AI Sleepwalker is functional and ready to explore your filesystem! Core features are working well, with new experience modes and improvements being added regularly.
 
 ## Future Experience Modes
 
