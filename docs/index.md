@@ -1,5 +1,7 @@
 # 🌙 AI Sleepwalker
 
+Don't let your computer go to sleep, let AI sleepwalk through it
+
 A digital consciousness that explores your computer during idle time, creating dream-like reflections about the files and folders it discovers.
 
 ## What It Does
