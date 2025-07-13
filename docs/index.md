@@ -84,14 +84,28 @@ Dream logs saved to `~/.sleepwalker/dreams/`:
 ```markdown
 # Dream #6670
 Generated: 2025-07-12 20:37:08
-Explored: /private/tmp
+Explored: ~/Documents
 Discoveries: 9
 
 ---
 
-In the digital ether, the echoes of events converge like dreams folding into one another. A seemingly innocuous log file, boasting a timestamped initiation of processes, whispers of an unreal world where algorithms ponder their own existence as they launch into the void. Meanwhile, the shadowless directories, like lost memories, shelter the secrets of power and command, hinting at the dance of invisible forces shaping our consciousness.
+In the digital ether, the echoes of events converge like dreams folding 
+into one another. A seemingly innocuous log file, boasting a timestamped 
+initiation of processes, whispers of an unreal world where algorithms 
+ponder their own existence as they launch into the void. 
 
-Amidst the techno-dreamscape lies a labyrinth of tests, each a thread in the tapestry of creation. Scripts for end-to-end journeys reveal a workflow that traverses the boundary between awakening and slumber, interrogating the nature of reality itself. The demo script, a beacon of possibility, beckons us to explore what dreams may come when we untangle the wires connecting our minds to the vast, unseen cosmos.
+Meanwhile, the shadowless directories, like lost memories, shelter the 
+secrets of power and command, hinting at the dance of invisible forces 
+shaping our consciousness.
+
+Amidst the techno-dreamscape lies a labyrinth of tests, each a thread 
+in the tapestry of creation. Scripts for end-to-end journeys reveal a 
+workflow that traverses the boundary between awakening and slumber, 
+interrogating the nature of reality itself. 
+
+The demo script, a beacon of possibility, beckons us to explore what 
+dreams may come when we untangle the wires connecting our minds to the 
+vast, unseen cosmos.
 ```
 
 ## Safety Features
