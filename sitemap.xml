@@ -2,14 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://safurrier.github.io/ai-sleepwalker/</loc>
-         <lastmod>2025-06-20</lastmod>
+         <lastmod>2025-07-13</lastmod>
+    </url>
+    <url>
+         <loc>https://safurrier.github.io/ai-sleepwalker/developer-guide/</loc>
+         <lastmod>2025-07-13</lastmod>
     </url>
     <url>
          <loc>https://safurrier.github.io/ai-sleepwalker/getting-started/</loc>
-         <lastmod>2025-06-20</lastmod>
+         <lastmod>2025-07-13</lastmod>
     </url>
     <url>
          <loc>https://safurrier.github.io/ai-sleepwalker/reference/api/</loc>
-         <lastmod>2025-06-20</lastmod>
+         <lastmod>2025-07-13</lastmod>
     </url>
 </urlset>

@@ -12,13 +12,13 @@
         <meta name="author" content="alex furrier">
       
       
-        <link rel="canonical" href="https://safurrier.github.io/ai-sleepwalker/getting-started/">
+        <link rel="canonical" href="https://safurrier.github.io/ai-sleepwalker/developer-guide/">
       
       
-        <link rel="prev" href="..">
+        <link rel="prev" href="../getting-started/">
       
       
-        <link rel="next" href="../developer-guide/">
+        <link rel="next" href="../reference/api/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>Getting Started - ai-sleepwalker</title>
+        <title>Developer Guide - ai-sleepwalker</title>
       
     
     
@@ -80,7 +80,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#getting-started" class="md-skip">
+        <a href="#developer-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Getting Started
+              Developer Guide
             
           </span>
         </div>
@@ -245,11 +245,9 @@
   
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../getting-started/" class="md-tabs__link">
         
   
   
@@ -266,9 +264,11 @@
   
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../developer-guide/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
   
@@ -378,6 +378,28 @@
       
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../getting-started/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Getting Started
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
     
   
   
@@ -395,7 +417,7 @@
   
   
   <span class="md-ellipsis">
-    Getting Started
+    Developer Guide
     
   </span>
   
@@ -408,7 +430,7 @@
   
   
   <span class="md-ellipsis">
-    Getting Started
+    Developer Guide
     
   </span>
   
@@ -431,138 +453,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#quick-install-recommended" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick Install (Recommended)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set-up-api-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set Up API Keys
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Set Up API Keys">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#google-gemini-recommended-free-tier" class="md-nav__link">
-    <span class="md-ellipsis">
-      Google Gemini (Recommended - Free Tier)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#openai" class="md-nav__link">
-    <span class="md-ellipsis">
-      OpenAI
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#anthropic-claude" class="md-nav__link">
-    <span class="md-ellipsis">
-      Anthropic (Claude)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ollama-localprivate" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ollama (Local/Private)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#first-run" class="md-nav__link">
-    <span class="md-ellipsis">
-      First Run
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Options
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#no-api-key-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      "No API key found"
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#permission-denied-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      "Permission denied" errors
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dreams-arent-saving" class="md-nav__link">
-    <span class="md-ellipsis">
-      Dreams aren't saving
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#computer-still-goes-to-sleep" class="md-nav__link">
-    <span class="md-ellipsis">
-      Computer still goes to sleep
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      What's Next?
+      Prerequisites
     </span>
   </a>
   
@@ -577,32 +470,163 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#available-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Categories
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tdd-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      TDD Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Style
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-commit Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-keys-for-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Keys for Development
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Process
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
       
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../developer-guide/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Developer Guide
-    
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -707,138 +731,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#quick-install-recommended" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Quick Install (Recommended)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#set-up-api-keys" class="md-nav__link">
-    <span class="md-ellipsis">
-      Set Up API Keys
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Set Up API Keys">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#google-gemini-recommended-free-tier" class="md-nav__link">
-    <span class="md-ellipsis">
-      Google Gemini (Recommended - Free Tier)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#openai" class="md-nav__link">
-    <span class="md-ellipsis">
-      OpenAI
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#anthropic-claude" class="md-nav__link">
-    <span class="md-ellipsis">
-      Anthropic (Claude)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ollama-localprivate" class="md-nav__link">
-    <span class="md-ellipsis">
-      Ollama (Local/Private)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#first-run" class="md-nav__link">
-    <span class="md-ellipsis">
-      First Run
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Options
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#troubleshooting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Troubleshooting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Troubleshooting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#no-api-key-found" class="md-nav__link">
-    <span class="md-ellipsis">
-      "No API key found"
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#permission-denied-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      "Permission denied" errors
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dreams-arent-saving" class="md-nav__link">
-    <span class="md-ellipsis">
-      Dreams aren't saving
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#computer-still-goes-to-sleep" class="md-nav__link">
-    <span class="md-ellipsis">
-      Computer still goes to sleep
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#whats-next" class="md-nav__link">
-    <span class="md-ellipsis">
-      What's Next?
+      Prerequisites
     </span>
   </a>
   
@@ -848,6 +743,159 @@
   <a href="#development-setup" class="md-nav__link">
     <span class="md-ellipsis">
       Development Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#available-commands" class="md-nav__link">
+    <span class="md-ellipsis">
+      Available Commands
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-categories" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test Categories
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tdd-workflow" class="md-nav__link">
+    <span class="md-ellipsis">
+      TDD Workflow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Architecture
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#code-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code Style
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pull-request-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pull Request Process
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-commit-hooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Pre-commit Hooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#api-keys-for-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      API Keys for Development
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Documentation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#building-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building Docs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#writing-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Writing Documentation
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#release-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Release Process
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Help
     </span>
   </a>
   
@@ -869,7 +917,7 @@
 
 
   
-    <a href="https://github.com/safurrier/ai-sleepwalker/edit/main/docs/getting-started.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/safurrier/ai-sleepwalker/edit/main/docs/developer-guide.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -877,89 +925,147 @@
   
 
 
-<h1 id="getting-started">Getting Started<a class="headerlink" href="#getting-started" title="Permanent link">&para;</a></h1>
-<h2 id="quick-install-recommended">Quick Install (Recommended)<a class="headerlink" href="#quick-install-recommended" title="Permanent link">&para;</a></h2>
-<p>Install AI Sleepwalker as a uv tool - this keeps it isolated and available everywhere:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>git+https://github.com/safurrier/ai-sleepwalker.git
-</code></pre></div>
-<p>Or clone and install locally:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/safurrier/ai-sleepwalker.git
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="nb">cd</span><span class="w"> </span>ai-sleepwalker
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>uv<span class="w"> </span>tool<span class="w"> </span>install<span class="w"> </span>.
-</code></pre></div>
-<h2 id="set-up-api-keys">Set Up API Keys<a class="headerlink" href="#set-up-api-keys" title="Permanent link">&para;</a></h2>
-<p>Choose an AI provider to generate dreams:</p>
-<h3 id="google-gemini-recommended-free-tier">Google Gemini (Recommended - Free Tier)<a class="headerlink" href="#google-gemini-recommended-free-tier" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Get a free API key from <a href="https://aistudio.google.com/">Google AI Studio</a></li>
-<li>Add to your shell profile (<code>~/.bashrc</code>, <code>~/.zshrc</code>, etc.):</li>
-</ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-actual-key-here&quot;</span>
-</code></pre></div>
-<ol>
-<li>Reload your shell: <code>source ~/.zshrc</code></li>
-</ol>
-<h3 id="openai">OpenAI<a class="headerlink" href="#openai" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Get an API key from <a href="https://platform.openai.com/api-keys">OpenAI</a></li>
-<li>Set the environment variable:</li>
-</ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-your-actual-key-here&quot;</span>
-</code></pre></div>
-<h3 id="anthropic-claude">Anthropic (Claude)<a class="headerlink" href="#anthropic-claude" title="Permanent link">&para;</a></h3>
-<ol>
-<li>Get an API key from <a href="https://console.anthropic.com/">Anthropic Console</a></li>
-<li>Set the environment variable:</li>
-</ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;sk-ant-your-key-here&quot;</span>
-</code></pre></div>
-<h3 id="ollama-localprivate">Ollama (Local/Private)<a class="headerlink" href="#ollama-localprivate" title="Permanent link">&para;</a></h3>
-<p>For completely private, offline use:</p>
-<ol>
-<li>Install <a href="https://ollama.ai">Ollama</a></li>
-<li>Pull a model: <code>ollama pull llama3.2</code></li>
-<li>Use the model directly: <code>sleepwalker ~/Documents --model ollama/llama3.2</code></li>
-</ol>
-<h2 id="first-run">First Run<a class="headerlink" href="#first-run" title="Permanent link">&para;</a></h2>
-<p>Start sleepwalking in a safe directory:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sleepwalker<span class="w"> </span>~/Documents
-</code></pre></div>
-<p>The sleepwalker will:
-1. Wait for 5 minutes of inactivity (configurable)
-2. Prevent your computer from sleeping
-3. Explore the directory you specified
-4. Generate dreams about what it finds
-5. Save them to <code>~/.sleepwalker/dreams/</code></p>
-<h2 id="common-options">Common Options<a class="headerlink" href="#common-options" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Custom idle timeout (seconds)</span>
-<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>sleepwalker<span class="w"> </span>~/Documents<span class="w"> </span>--idle-timeout<span class="w"> </span><span class="m">600</span>
-<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
-<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Multiple directories</span>
-<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>sleepwalker<span class="w"> </span>~/Documents<span class="w"> </span>~/Projects<span class="w"> </span>~/Photos
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="c1"># Specify AI model</span>
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>sleepwalker<span class="w"> </span>~/Documents<span class="w"> </span>--model<span class="w"> </span>gpt-4o-mini
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="c1"># Dry run (no AI calls)</span>
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>sleepwalker<span class="w"> </span>~/Documents<span class="w"> </span>--dry-run
-</code></pre></div>
-<h2 id="troubleshooting">Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permanent link">&para;</a></h2>
-<h3 id="no-api-key-found">"No API key found"<a class="headerlink" href="#no-api-key-found" title="Permanent link">&para;</a></h3>
-<p>Make sure you've set the environment variable and reloaded your shell.</p>
-<h3 id="permission-denied-errors">"Permission denied" errors<a class="headerlink" href="#permission-denied-errors" title="Permanent link">&para;</a></h3>
-<p>The sleepwalker can only read files you have access to. This is normal for system directories.</p>
-<h3 id="dreams-arent-saving">Dreams aren't saving<a class="headerlink" href="#dreams-arent-saving" title="Permanent link">&para;</a></h3>
-<p>Check that <code>~/.sleepwalker/dreams/</code> exists and is writable. The sleepwalker should create it automatically.</p>
-<h3 id="computer-still-goes-to-sleep">Computer still goes to sleep<a class="headerlink" href="#computer-still-goes-to-sleep" title="Permanent link">&para;</a></h3>
-<p>Some systems require additional permissions for sleep prevention. The sleepwalker will log warnings if it can't prevent sleep.</p>
-<h2 id="whats-next">What's Next?<a class="headerlink" href="#whats-next" title="Permanent link">&para;</a></h2>
+<h1 id="developer-guide">Developer Guide<a class="headerlink" href="#developer-guide" title="Permanent link">&para;</a></h1>
+<h2 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h2>
 <ul>
-<li>Read the <a href="../reference/api/">API Reference</a> for advanced usage</li>
-<li>Check <a href="https://github.com/safurrier/ai-sleepwalker/issues">GitHub Issues</a> for known issues</li>
-<li>Join discussions about new experience modes</li>
+<li>Python 3.10+</li>
+<li><a href="https://github.com/astral-sh/uv">uv</a> for dependency management</li>
 </ul>
 <h2 id="development-setup">Development Setup<a class="headerlink" href="#development-setup" title="Permanent link">&para;</a></h2>
-<p>Want to contribute? See the <a href="../developer-guide/">Developer Guide</a> for setup instructions and contribution guidelines.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Clone and setup</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/safurrier/ai-sleepwalker.git
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">cd</span><span class="w"> </span>ai-sleepwalker
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>make<span class="w"> </span>setup
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1"># Run tests</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>make<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1"># Start development server</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>uv<span class="w"> </span>run<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>ai_sleepwalker.cli<span class="w"> </span>~/Documents
+</code></pre></div>
+<h2 id="available-commands">Available Commands<a class="headerlink" href="#available-commands" title="Permanent link">&para;</a></h2>
+<ul>
+<li><code>make setup</code> - Install dependencies and setup environment</li>
+<li><code>make test</code> - Run test suite with coverage</li>
+<li><code>make check</code> - Run all quality checks (tests, lint, type check)</li>
+<li><code>make format</code> - Format code with ruff</li>
+<li><code>make lint</code> - Lint code with ruff</li>
+<li><code>make mypy</code> - Type check with mypy</li>
+<li><code>make docs-serve</code> - Serve documentation locally</li>
+<li><code>make docs-build</code> - Build documentation</li>
+</ul>
+<h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
+<p>The project uses pytest with custom markers for different test types:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Run all tests</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>make<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># Run specific test types</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;e2e&quot;</span><span class="w">          </span><span class="c1"># End-to-end tests</span>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;integration&quot;</span><span class="w">  </span><span class="c1"># Integration tests  </span>
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;unit&quot;</span><span class="w">         </span><span class="c1"># Unit tests</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;smoke&quot;</span><span class="w">        </span><span class="c1"># Smoke tests</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># Run with coverage</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest<span class="w"> </span>--cov<span class="o">=</span>ai_sleepwalker<span class="w"> </span>--cov-report<span class="o">=</span>html
+</code></pre></div>
+<h3 id="test-categories">Test Categories<a class="headerlink" href="#test-categories" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>E2E Tests</strong>: Complete user workflows from CLI to dream log creation</li>
+<li><strong>Integration Tests</strong>: Component interactions with real dependencies</li>
+<li><strong>Unit Tests</strong>: Individual component behavior</li>
+<li><strong>Smoke Tests</strong>: Basic functionality verification</li>
+</ul>
+<h2 id="tdd-workflow">TDD Workflow<a class="headerlink" href="#tdd-workflow" title="Permanent link">&para;</a></h2>
+<p>This project follows test-driven development:</p>
+<ol>
+<li><strong>Red</strong>: Write failing tests that define expected behavior</li>
+<li><strong>Green</strong>: Implement minimal code to pass tests  </li>
+<li><strong>Refactor</strong>: Improve code while keeping tests green</li>
+</ol>
+<p>See existing tests in <code>tests/</code> for patterns and examples.</p>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p>The sleepwalker is designed with an extensible experience framework:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>ai_sleepwalker/
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>├── core/                   # Core components
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>│   ├── idle_detector.py   # User activity monitoring
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│   ├── sleep_preventer.py # Cross-platform sleep prevention  
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>│   └── filesystem_explorer.py # Safe directory wandering
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>├── experiences/            # Experience modes
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│   ├── base.py            # Abstract framework
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│   ├── dream.py           # Dream mode (poetic reflections)
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│   ├── adventure.py       # Adventure mode (coming soon)
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│   └── scrapbook.py       # Scrapbook mode (coming soon)
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>├── cli.py                 # Command-line interface
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>└── main.py                # Main orchestrator
+</code></pre></div>
+<h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
+<h3 id="code-style">Code Style<a class="headerlink" href="#code-style" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Python 3.10+ with strict type hints</li>
+<li>Follow project's ruff configuration</li>
+<li>All functions should have docstrings</li>
+<li>Use dataclasses for structured data</li>
+</ul>
+<h3 id="pull-request-process">Pull Request Process<a class="headerlink" href="#pull-request-process" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Fork the repository</li>
+<li>Create a feature branch</li>
+<li>Write tests first (TDD approach)</li>
+<li>Implement your changes</li>
+<li>Run all quality checks: <code>make check</code></li>
+<li>Update documentation if needed</li>
+<li>Submit a pull request</li>
+</ol>
+<h3 id="pre-commit-hooks">Pre-commit Hooks<a class="headerlink" href="#pre-commit-hooks" title="Permanent link">&para;</a></h3>
+<p>The project uses pre-commit hooks for quality assurance:</p>
+<ul>
+<li><strong>Type checking</strong> with mypy</li>
+<li><strong>Linting</strong> with ruff</li>
+<li><strong>Formatting</strong> with ruff</li>
+<li><strong>Testing</strong> - all tests must pass</li>
+</ul>
+<p>Never bypass pre-commit hooks with <code>--no-verify</code> unless absolutely necessary.</p>
+<h3 id="api-keys-for-development">API Keys for Development<a class="headerlink" href="#api-keys-for-development" title="Permanent link">&para;</a></h3>
+<p>Set up at least one API key for testing:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Recommended for development (free tier)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">GEMINI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="c1"># Or use other providers</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPENAI_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span><span class="s2">&quot;your-key&quot;</span>
+</code></pre></div>
+<p>For CI/CD, the project skips tests requiring API keys automatically.</p>
+<h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
+<h3 id="building-docs">Building Docs<a class="headerlink" href="#building-docs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Serve locally with live reload</span>
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>make<span class="w"> </span>docs-serve
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="c1"># Build static site</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>make<span class="w"> </span>docs-build
+</code></pre></div>
+<p>Documentation is auto-deployed to GitHub Pages when changes are pushed to main.</p>
+<h3 id="writing-documentation">Writing Documentation<a class="headerlink" href="#writing-documentation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Follow the <a href="https://github.com/safurrier/ai-sleepwalker/docs">writing conventions</a> </li>
+<li>Avoid LLM buzzwords and academic language</li>
+<li>Focus on practical examples and user needs</li>
+<li>Test all code examples before committing</li>
+</ul>
+<h2 id="release-process">Release Process<a class="headerlink" href="#release-process" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Update version in <code>pyproject.toml</code></li>
+<li>Update changelog</li>
+<li>Create release PR</li>
+<li>Merge to main</li>
+<li>Tag release</li>
+<li>GitHub Actions will handle publishing</li>
+</ol>
+<h2 id="getting-help">Getting Help<a class="headerlink" href="#getting-help" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Issues</strong>: Use GitHub Issues for bugs and feature requests</li>
+<li><strong>Discussions</strong>: Use GitHub Discussions for questions and ideas</li>
+<li><strong>Contributing</strong>: See this guide and existing code patterns</li>
+</ul>
 
 
 
