@@ -111,6 +111,14 @@ each one a monument to ambition's eternal optimism...
 - **Permission respect**: Gracefully handles access denied errors
 - **Local LLM option**: For privacy-sensitive environments
 
+## 📚 Documentation
+
+**Full documentation available at: https://safurrier.github.io/ai-sleepwalker/**
+
+- [Quick Start Guide](https://safurrier.github.io/ai-sleepwalker/getting-started/) - Installation and setup
+- [Developer Guide](https://safurrier.github.io/ai-sleepwalker/developer-guide/) - Contributing and development
+- [API Reference](https://safurrier.github.io/ai-sleepwalker/reference/api/) - Technical documentation
+
 ## 🔧 Development
 
 ### Prerequisites
@@ -139,7 +147,7 @@ This project follows TDD principles:
 2. **Green**: Implement minimal code to pass tests  
 3. **Refactor**: Improve code while keeping tests green
 
-See [Contributing Guidelines](CONTRIBUTING.md) for detailed development workflow.
+See the [Developer Guide](https://safurrier.github.io/ai-sleepwalker/developer-guide/) for detailed setup and contribution workflow.
 
 ### Project Commands
 - `make setup` - Install dependencies and setup environment
