@@ -1,6 +1,6 @@
 [project]
 name = "ai-sleepwalker"
-version = "0.1.0"
+version = "1.0.0"
 description = "Don't let your computer go to sleep, let AI sleepwalk through it"
 authors = [
     { name = "alex furrier", email = "safurrier@gmail.com" },
